@@ -130,13 +130,30 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     emit(ProductInitial());
   }
 
+  // Future<void> _saveProductToDatabase(OnSaveProductsBuyToDatabaseEvent event,
+  //     Emitter<ProductState> emit) async {
+  //   try {
+  //     emit(LoadingProductState());
+
+  //     final data = await pembayaranServices.saveOrderBuyProductToDatabase(
+  //         'Receipt', event.amount, event.product);
+
+  //     if (data.resp) {
+  //       emit(SuccessProductState());
+  //     } else {
+  //       emit(FailureProductState(data.message));
+  //     }
+  //   } catch (e) {
+  //     emit(FailureProductState(e.toString()));
+  //   }
+  // }
+
   Future<void> _saveProductToDatabase(OnSaveProductsBuyToDatabaseEvent event,
       Emitter<ProductState> emit) async {
     try {
       emit(LoadingProductState());
 
-      final data = await pembayaranServices.saveOrderBuyProductToDatabase(
-          'Receipt', event.amount, event.product);
+      final data = await pembayaranServices.saveOrderBuyProductToDatabase1();
 
       if (data.resp) {
         emit(SuccessProductState());

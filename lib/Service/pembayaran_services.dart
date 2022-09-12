@@ -29,6 +29,25 @@ class PembayaranServices {
     return ResponseDefault.fromJson(jsonDecode(resp.body));
   }
 
+  Future<ResponseDefault> saveOrderBuyProductToDatabase1() async {
+    final token = await secureStorage.readToken();
+
+    // Map<String, dynamic> data = {
+    //   'receipt': receipt,
+    //   'amount': amount,
+    //   'products': products
+    // };
+
+    // final body = json.encode(data);
+
+    final resp = await http.post(
+      Uri.parse('${URLS.urlApi}/product/save-order-buy-product-1'),
+      headers: {'Content-type': 'application/json', 'xxx-token': token!},
+    );
+
+    return ResponseDefault.fromJson(jsonDecode(resp.body));
+  }
+
   Future<ResponseDefault> saveOrderBuyProductToDatabase2(
       String uidOrder, String image) async {
     final token = await secureStorage.readToken();

@@ -1,6 +1,8 @@
 import 'package:e_commers/Bloc/product/product_bloc.dart';
 import 'package:e_commers/Helpers/helpers.dart';
 import 'package:e_commers/Models/Response/response_keranjang.dart';
+import 'package:e_commers/Models/Response/response_keranjang1.dart';
+import 'package:e_commers/Service/keranjang_services.dart';
 import 'package:e_commers/ui/Views/Home/home_page.dart';
 import 'package:e_commers/ui/Views/Profile/PaymentPage.dart';
 import 'package:e_commers/ui/Views/Profile/shopping/shopping_page.dart';
@@ -89,64 +91,119 @@ class CheckOutPage extends StatelessWidget {
             ),
             // PromoCode(size: size.width),
             // const OrderDetails(),
-            Container(
-              margin: const EdgeInsets.only(top: 10),
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-              height: 60,
-              color: Colors.white,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const TextFrave(
-                    text: 'Order',
-                    fontSize: 19,
-                  ),
-                  TextFrave(
-                    text: '\Rp ${productBloc.state.total.toInt()}',
-                    // text: '\eRPe ${keranjang.amount.toStringAsFixed(0)}',
-                    fontSize: 19,
-                  )
-                ],
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.only(top: 10),
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-              height: 60,
-              color: Colors.white,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const TextFrave(
-                    text: 'Total',
-                    fontSize: 19,
-                  ),
-                  TextFrave(
-                    text: '\Rp ${productBloc.state.total.toInt()}',
-                    fontSize: 19,
-                  )
-                ],
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.only(top: 15.0),
-              padding:
-                  const EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
-              alignment: Alignment.bottomCenter,
-              child: BtnFrave(
-                text: 'Pay',
-                height: 55,
-                fontSize: 22,
-                width: size.width,
-                onPressed: () {
-                  // cartBloc.add( OnMakePayment(amount: '${ (productBloc.state.total * 100 ).floor() }', creditCardFrave: cartBloc.state.creditCardFrave ) );
-                  productBloc.add(OnSaveProductsBuyToDatabaseEvent(
-                      '${productBloc.state.total}', productBloc.product));
-                },
-              ),
-            )
+            // Container(
+            //   margin: const EdgeInsets.only(top: 10),
+            //   padding:
+            //       const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+            //   height: 60,
+            //   color: Colors.white,
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //     children: [
+            //       const TextFrave(
+            //         text: 'Order',
+            //         fontSize: 19,
+            //       ),
+            //       TextFrave(
+            //         text: '\Rp ${productBloc.state.total.toInt()}',
+            //         // text: '\eRPe ${keranjang.amount.toStringAsFixed(0)}',
+            //         fontSize: 19,
+            //       )
+            //     ],
+            //   ),
+            // ),
+            // Container(
+            //   margin: const EdgeInsets.only(top: 10),
+            //   padding:
+            //       const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+            //   height: 60,
+            //   color: Colors.white,
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //     children: [
+            //       const TextFrave(
+            //         text: 'Total',
+            //         fontSize: 19,
+            //       ),
+            //       TextFrave(
+            //         text: '\Rp ${productBloc.state.total.toInt()}',
+            //         fontSize: 19,
+            //       )
+            //     ],
+            //   ),
+            // ),
+            FutureBuilder<Keranjang1>(
+                future: keranjangServices.getKeranjang(),
+                builder: (context, snapshot) {
+                  if (!snapshot.hasData) {
+                    return Container();
+                  } else {
+                    return Column(
+                      children: [
+                        Container(
+                          margin: const EdgeInsets.only(top: 10),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 20.0, vertical: 10.0),
+                          height: 60,
+                          color: Colors.white,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              const TextFrave(
+                                text: 'Order',
+                                fontSize: 19,
+                              ),
+                              TextFrave(
+                                // text: '\Rp ${productBloc.state.total.toInt()}',
+                                // text: '\eRPe ${keranjang.amount.toStringAsFixed(0)}',
+                                text: snapshot.data!.amount.toString(),
+                                fontSize: 19,
+                              )
+                            ],
+                          ),
+                        ),
+                        Container(
+                          margin: const EdgeInsets.only(top: 10),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 20.0, vertical: 10.0),
+                          height: 60,
+                          color: Colors.white,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              const TextFrave(
+                                text: 'Total',
+                                fontSize: 19,
+                              ),
+                              TextFrave(
+                                // text: '\Rp ${productBloc.state.total.toInt()}',
+                                text: snapshot.data!.amount.toString(),
+                                fontSize: 19,
+                              )
+                            ],
+                          ),
+                        ),
+                        Container(
+                          margin: const EdgeInsets.only(top: 15.0),
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 10.0, horizontal: 15.0),
+                          alignment: Alignment.bottomCenter,
+                          child: BtnFrave(
+                            text: 'Pay',
+                            height: 55,
+                            fontSize: 22,
+                            width: size.width,
+                            onPressed: () {
+                              // cartBloc.add( OnMakePayment(amount: '${ (productBloc.state.total * 100 ).floor() }', creditCardFrave: cartBloc.state.creditCardFrave ) );
+                              productBloc
+                                  .add(OnSaveProductsBuyToDatabaseEvent(snapshot.data!.uidKeranjang.toString()));
+                            },
+                          ),
+                        )
+                      ],
+                    );
+                  }
+                }),
           ],
         ),
       ),

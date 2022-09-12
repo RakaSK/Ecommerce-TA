@@ -117,7 +117,10 @@ class _ListOrderDetails extends StatelessWidget {
                   height: 56,
                   border: 15,
                   onPressed: () => Navigator.push(
-                      context, routeFade(page: BuktiPembayaranPage())),
+                      context,
+                      routeFade(
+                          page: BuktiPembayaranPage(
+                              orderDetails[0].uidOrderBuy.toString()))),
                 ),
               ],
             ),

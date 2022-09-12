@@ -12,7 +12,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class BuktiPembayaranPage extends StatefulWidget {
-  BuktiPembayaranPage({Key? key}) : super(key: key);
+  final String uidOrderBuy;
+  BuktiPembayaranPage(this.uidOrderBuy);
 
   @override
   _AddProductPageState createState() => _AddProductPageState();
@@ -88,7 +89,8 @@ class _AddProductPageState extends State<BuktiPembayaranPage> {
                 onPressed: () {
                   if (_keyForm.currentState!.validate()) {
                     productBloc.add(OnSaveProductsBuyToDatabase2Event(
-                        productBloc.state.uidOrder.toString(),
+                        // productBloc.state.uidOrder.toString(),
+                        widget.uidOrderBuy,
                         productBloc.state.pathImage!));
                     // print(productBloc);
                   }

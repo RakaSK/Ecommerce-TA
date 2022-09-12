@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:e_commers/Models/Response/response_keranjang1.dart';
 import 'package:e_commers/Models/product.dart';
 import 'package:e_commers/Models/Response/response_keranjang.dart';
 import 'package:e_commers/Models/Response/response_keranjang_details.dart';
@@ -62,6 +63,26 @@ class KeranjangServices {
     // print(response.body);
 
     return ResponseKeranjang.fromJson(jsonDecode(response.body));
+  }
+
+  Future<Keranjang1> getKeranjang() async {
+    final token = await secureStorage.readToken();
+    // print(token);
+
+    Map<String, dynamic> data = {
+      'token': token,
+    };
+
+    final body = json.encode(data);
+    final response = await http.post(
+        Uri.parse('${URLS.urlApi}/product/get-all-keranjang-products'),
+        headers: {'Content-type': 'application/json', 'xxx-token': token!},
+        body: body);
+
+    // print(response.body);
+
+    // return responseKeranjang1.fromJson(jsonDecode(response.body));
+    return responseKeranjang1FromJson(response.body);
   }
 
   Future<List<KeranjangDetails>> getKeranjangDetails(
