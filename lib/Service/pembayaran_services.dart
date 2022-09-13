@@ -57,10 +57,10 @@ class PembayaranServices {
         Uri.parse('${URLS.urlApi}/product/save-order-buy-product-2' + uidOrder))
       ..headers['Accept'] = 'application/json'
       ..headers['xxx-token'] = token!
-      // ..fields['uidOrder'] = uidOrder
+      ..fields['uidOrder'] = uidOrder
+      // ..fields.addEntries(MapEntry("uidOrder" : uidOrder));
       ..files.add(
           await http.MultipartFile.fromPath('BuktiPembayaranImage', image));
-    // ..fields.addEntries(MapEntry("uidOrder" : uidOrder));
 
     final resp = await request.send();
     var data = await http.Response.fromStream(resp);
@@ -87,11 +87,13 @@ class PembayaranServices {
 
   Future<List<OrderDetail>> getOrderDetails(String uidOrder) async {
     final token = await secureStorage.readToken();
+    print(uidOrder);
 
     final response = await http.get(
       Uri.parse('${URLS.urlApi}/product/get-orders-details/' + uidOrder),
       headers: {'Content-type': 'application/json', 'xxx-token': token!},
     );
+    print(response.body);
     return ResponseOrderDetails.fromJson(jsonDecode(response.body))
         .orderDetails;
   }

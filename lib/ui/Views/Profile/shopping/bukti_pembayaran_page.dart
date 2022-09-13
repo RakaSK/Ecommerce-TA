@@ -92,7 +92,7 @@ class _AddProductPageState extends State<BuktiPembayaranPage> {
                         // productBloc.state.uidOrder.toString(),
                         widget.uidOrderBuy,
                         productBloc.state.pathImage!));
-                    // print(productBloc);
+                    print(widget.uidOrderBuy);
                   }
                 },
                 child: const TextFrave(

@@ -36,6 +36,10 @@ class _ListOrderDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    bool sudahbayar = false;
+    if (orderDetails[0].bukti_pembayaran != "") {
+      sudahbayar = true;
+    }
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -110,18 +114,25 @@ class _ListOrderDetails extends StatelessWidget {
             child: Column(
               children: [
                 const SizedBox(height: 18.0),
-                BtnFrave(
-                  text: 'Bukti Pembayaran',
-                  fontSize: 20,
-                  width: size.width,
-                  height: 56,
-                  border: 15,
-                  onPressed: () => Navigator.push(
-                      context,
-                      routeFade(
-                          page: BuktiPembayaranPage(
-                              orderDetails[0].uidOrderBuy.toString()))),
-                ),
+                sudahbayar
+                    ? Container(
+                        child: Text("Anda Sudah Mengirim Bukti Pembayaran",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15,
+                                fontFamily: 'Roboto')))
+                    : BtnFrave(
+                        text: 'Bukti Pembayaran',
+                        fontSize: 20,
+                        width: size.width,
+                        height: 56,
+                        border: 15,
+                        onPressed: () => Navigator.push(
+                            context,
+                            routeFade(
+                                page: BuktiPembayaranPage(
+                                    orderDetails[0].uidOrderBuy.toString()))),
+                      ),
               ],
             ),
           ),

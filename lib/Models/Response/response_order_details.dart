@@ -41,6 +41,7 @@ class OrderDetail {
     required this.picture,
     required this.quantity,
     required this.price,
+    required this.bukti_pembayaran,
   });
 
   int uidOrderDetails;
@@ -50,15 +51,17 @@ class OrderDetail {
   String picture;
   int quantity;
   int price;
+  String bukti_pembayaran;
 
   factory OrderDetail.fromJson(Map<String, dynamic> json) => OrderDetail(
         uidOrderDetails: json["uidOrderDetails"],
-        uidOrderBuy: json["uidOrderBuy"],
+        uidOrderBuy: json["orderBuy_id"],
         productId: json["product_id"],
         nameProduct: json["nameProduct"],
         picture: json["picture"],
         quantity: json["quantity"],
         price: json["price"],
+        bukti_pembayaran: json["bukti_pembayaran"],
       );
 
   Map<String, dynamic> toJson() => {
