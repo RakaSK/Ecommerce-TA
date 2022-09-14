@@ -11,7 +11,7 @@ void modalSuccess(BuildContext context, String text,
         shape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
         content: SizedBox(
-          height: 350,
+          height: 300,
           child: Column(
             children: [
               Row(

@@ -46,11 +46,11 @@ class OnSubtractQuantityProductEvent extends ProductEvent {
 class OnClearProductsEvent extends ProductEvent {}
 
 class OnSaveProductsBuyToDatabaseEvent extends ProductEvent {
-  // final String amount;
-  // final List<ProductCart> product;
+  final int total;
+  final int ongkir;
   final String uidKeranjang;
 
-  OnSaveProductsBuyToDatabaseEvent(this.uidKeranjang);
+  OnSaveProductsBuyToDatabaseEvent(this.total, this.ongkir, this.uidKeranjang);
 }
 
 class OnSelectPathImageProductEvent extends ProductEvent {

@@ -46,30 +46,30 @@ class StartHomePage extends StatelessWidget {
                   child: ListView(
                     physics: BouncingScrollPhysics(),
                     children: [
+                      // BtnFrave(
+                      //     text: 'Sign Up with Google',
+                      //     colorText: Colors.black87,
+                      //     fontSize: 19,
+                      //     backgroundColor: Color(0xFFE9EFF9),
+                      //     width: size.width),
+                      SizedBox(height: 40.0),
                       BtnFrave(
                           text: 'Sign Up with Email ID',
-                          colorText: Colors.white,
-                          backgroundColor: Color(0xff1C2834),
+                          colorText: Colors.black,
+                          backgroundColor: Color(0xFFE9EFF9),
                           onPressed: () =>
                               Navigator.of(context).pushNamed('signUpPage'),
-                          width: size.width),
-                      SizedBox(height: 15.0),
-                      BtnFrave(
-                          text: 'Sign Up with Google',
-                          colorText: Colors.black87,
-                          fontSize: 19,
-                          backgroundColor: Color(0xFFE9EFF9),
                           width: size.width),
                       SizedBox(height: 10.0),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           TextFrave(
-                              text: 'Already have an account?', fontSize: 17),
+                              text: 'Already have an account?', fontSize: 18),
                           TextButton(
                             child: TextFrave(
                                 text: 'Sign In',
-                                fontSize: 18,
+                                fontSize: 19,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.white),
                             onPressed: () =>

@@ -153,7 +153,8 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     try {
       emit(LoadingProductState());
 
-      final data = await pembayaranServices.saveOrderBuyProductToDatabase1();
+      final data = await pembayaranServices.saveOrderBuyProductToDatabase1(
+          event.total, event.ongkir);
 
       if (data.resp) {
         emit(SuccessProductState());

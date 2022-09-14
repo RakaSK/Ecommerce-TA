@@ -1,6 +1,10 @@
 import 'dart:convert';
 
+import 'package:e_commers/Bloc/Ongkir/ongkir_bloc.dart';
+import 'package:e_commers/Helpers/helpers.dart';
+import 'package:e_commers/ui/Views/cart/checkout_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
 
 class DetailPage extends StatefulWidget {
@@ -8,8 +12,10 @@ class DetailPage extends StatefulWidget {
   final String? kota_tujuan;
   final String? berat;
   final String? kurir;
+  final String? order;
 
-  DetailPage({this.kota_asal, this.kota_tujuan, this.berat, this.kurir});
+  DetailPage(
+      {this.kota_asal, this.kota_tujuan, this.berat, this.kurir, this.order});
 
   @override
   State<DetailPage> createState() => _DetailPageState();
@@ -29,6 +35,11 @@ class _DetailPageState extends State<DetailPage> {
 
   Future _getData() async {
     try {
+      print(widget.kota_asal);
+      print(widget.kota_tujuan);
+      print(widget.berat);
+      print(widget.kurir);
+
       final response = await http.post(
         Uri.parse(
           "https://api.rajaongkir.com/starter/cost",
@@ -64,6 +75,12 @@ class _DetailPageState extends State<DetailPage> {
         itemCount: _data.length,
         itemBuilder: (_, index) {
           return ListTile(
+            onTap: () {
+              BlocProvider.of<OngkirBloc>(context).add(PilihOngkirEvent(
+                  Ongkir: _data[index]['cost'][0]['value'].toString(),
+                  Order: "0"));
+              Navigator.push(context, routeSlide(page: CheckOutPage()));
+            },
             title: Text("${_data[index]['service']}"),
             subtitle: Text("${_data[index]['description']}"),
             trailing: Column(

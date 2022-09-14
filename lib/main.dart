@@ -1,3 +1,5 @@
+import 'package:e_commers/Bloc/Ongkir/ongkir_bloc.dart';
+import 'package:e_commers/Bloc/Total/total_bloc.dart';
 import 'package:e_commers/Bloc/cart/cart_bloc.dart';
 import 'package:e_commers/Bloc/category/category_bloc.dart';
 import 'package:e_commers/Bloc/product/product_bloc.dart';
@@ -26,6 +28,8 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => ProductBloc()),
         BlocProvider(create: (context) => CategoryBloc()),
         BlocProvider(create: (context) => CartBloc()),
+        BlocProvider(create: (context) => OngkirBloc()),
+        BlocProvider(create: (context) => TotalBloc()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

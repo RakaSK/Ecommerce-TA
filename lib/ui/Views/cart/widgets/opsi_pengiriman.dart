@@ -27,17 +27,16 @@ class OpsiPengiriman extends StatelessWidget {
                     fontSize: 19,
                     fontWeight: FontWeight.w600),
                 GestureDetector(
-                  child: BlocBuilder<CartBloc, CartState>(
-                      builder: (context, state) => (!state.cardActive!)
-                          ? const TextFrave(
-                              text: 'Add', color: Colors.blue, fontSize: 18)
-                          : const TextFrave(
-                              text: 'Change',
-                              color: Colors.blue,
-                              fontSize: 18)),
-                  // onTap: () =>
-                  //     Navigator.push(context, routeSlide(page: OpsiKirim()))
-                )
+                    child: BlocBuilder<CartBloc, CartState>(
+                        builder: (context, state) => (!state.cardActive!)
+                            ? const TextFrave(
+                                text: 'Add', color: Colors.blue, fontSize: 18)
+                            : const TextFrave(
+                                text: 'Change',
+                                color: Colors.blue,
+                                fontSize: 18)),
+                    onTap: () =>
+                        Navigator.push(context, routeSlide(page: OpsiKirim())))
               ],
             ),
             const Divider(),

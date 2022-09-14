@@ -1,3 +1,5 @@
+import 'package:e_commers/Bloc/Ongkir/ongkir_bloc.dart';
+import 'package:e_commers/Bloc/Total/total_bloc.dart';
 import 'package:e_commers/Bloc/product/product_bloc.dart';
 import 'package:e_commers/Helpers/helpers.dart';
 import 'package:e_commers/Models/Response/response_keranjang.dart';
@@ -15,6 +17,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CheckOutPage extends StatelessWidget {
+  int total = 0;
+
+  int ongkir = 0;
+
   // final ResponseKeranjang keranjang;
   // const CheckOutPage({Key? key, required this.keranjang}) : super(key: key);
   @override
@@ -71,67 +77,6 @@ class CheckOutPage extends StatelessWidget {
         body: ListView(
           children: [
             const StreetAddressCheckout(),
-            const OpsiPengiriman(),
-            Container(
-              margin: const EdgeInsets.only(top: 10.0),
-              padding: const EdgeInsets.all(15.0),
-              height: 100,
-              color: Colors.white,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
-                  TextFrave(
-                      text: 'Delivery Details',
-                      fontSize: 19,
-                      fontWeight: FontWeight.w600),
-                  Divider(),
-                  TextFrave(text: 'Stander Delivery (3-4 days)', fontSize: 18),
-                ],
-              ),
-            ),
-            // PromoCode(size: size.width),
-            // const OrderDetails(),
-            // Container(
-            //   margin: const EdgeInsets.only(top: 10),
-            //   padding:
-            //       const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-            //   height: 60,
-            //   color: Colors.white,
-            //   child: Row(
-            //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //     children: [
-            //       const TextFrave(
-            //         text: 'Order',
-            //         fontSize: 19,
-            //       ),
-            //       TextFrave(
-            //         text: '\Rp ${productBloc.state.total.toInt()}',
-            //         // text: '\eRPe ${keranjang.amount.toStringAsFixed(0)}',
-            //         fontSize: 19,
-            //       )
-            //     ],
-            //   ),
-            // ),
-            // Container(
-            //   margin: const EdgeInsets.only(top: 10),
-            //   padding:
-            //       const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-            //   height: 60,
-            //   color: Colors.white,
-            //   child: Row(
-            //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //     children: [
-            //       const TextFrave(
-            //         text: 'Total',
-            //         fontSize: 19,
-            //       ),
-            //       TextFrave(
-            //         text: '\Rp ${productBloc.state.total.toInt()}',
-            //         fontSize: 19,
-            //       )
-            //     ],
-            //   ),
-            // ),
             FutureBuilder<Keranjang1>(
                 future: keranjangServices.getKeranjang(),
                 builder: (context, snapshot) {
@@ -140,6 +85,86 @@ class CheckOutPage extends StatelessWidget {
                   } else {
                     return Column(
                       children: [
+                        const OpsiPengiriman(),
+                        Container(
+                          margin: const EdgeInsets.only(top: 10.0),
+                          padding: const EdgeInsets.all(15.0),
+                          height: 100,
+                          color: Colors.white,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: const [
+                              TextFrave(
+                                  text: 'Delivery Details',
+                                  fontSize: 19,
+                                  fontWeight: FontWeight.w600),
+                              Divider(),
+                              TextFrave(
+                                  text: 'Stander Delivery (3-4 days)',
+                                  fontSize: 18),
+                            ],
+                          ),
+                        ),
+                        BlocBuilder<OngkirBloc, OngkirState>(
+                            builder: ((context, state) {
+                          if (state is OngkirInitial) {
+                            return Container(
+                              margin: const EdgeInsets.only(top: 10),
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 20.0, vertical: 10.0),
+                              height: 60,
+                              color: Colors.white,
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  const TextFrave(
+                                    text: 'Cek Ongkir',
+                                    fontSize: 19,
+                                  ),
+                                  TextFrave(
+                                    // text: '\Rp ${productBloc.state.total.toInt()}',
+                                    // text: '\eRPe ${keranjang.amount.toStringAsFixed(0)}',
+                                    text: "0",
+                                    fontSize: 19,
+                                  )
+                                ],
+                              ),
+                            );
+                          } else if (state is SetOngkir) {
+                            ongkir = int.parse(state.Ongkir);
+                            print("SetOngkir");
+                            BlocProvider.of<TotalBloc>(context).add(
+                                PilihTotalEvent(
+                                    Total: snapshot.data!.amount.toString(),
+                                    Ongkir: (state.Ongkir)));
+                            return Container(
+                              margin: const EdgeInsets.only(top: 10),
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 20.0, vertical: 10.0),
+                              height: 60,
+                              color: Colors.white,
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  const TextFrave(
+                                    text: 'Cek Ongkir',
+                                    fontSize: 19,
+                                  ),
+                                  TextFrave(
+                                    // text: '\Rp ${productBloc.state.total.toInt()}',
+                                    // text: '\eRPe ${keranjang.amount.toStringAsFixed(0)}',
+                                    text: state.Ongkir,
+                                    fontSize: 19,
+                                  )
+                                ],
+                              ),
+                            );
+                          } else {
+                            return Container();
+                          }
+                        })),
                         Container(
                           margin: const EdgeInsets.only(top: 10),
                           padding: const EdgeInsets.symmetric(
@@ -175,11 +200,25 @@ class CheckOutPage extends StatelessWidget {
                                 text: 'Total',
                                 fontSize: 19,
                               ),
-                              TextFrave(
-                                // text: '\Rp ${productBloc.state.total.toInt()}',
-                                text: snapshot.data!.amount.toString(),
-                                fontSize: 19,
-                              )
+                              BlocBuilder<TotalBloc, TotalState>(
+                                  builder: ((context, state) {
+                                if (state is TotalInitial) {
+                                  return TextFrave(
+                                    // text: '\Rp ${productBloc.state.total.toInt()}',
+                                    text: "0",
+                                    fontSize: 19,
+                                  );
+                                } else if (state is SetTotal) {
+                                  total = int.parse(state.Total);
+                                  return TextFrave(
+                                    // text: '\Rp ${productBloc.state.total.toInt()}',
+                                    text: state.Total,
+                                    fontSize: 19,
+                                  );
+                                } else {
+                                  return Container();
+                                }
+                              }))
                             ],
                           ),
                         ),
@@ -195,8 +234,10 @@ class CheckOutPage extends StatelessWidget {
                             width: size.width,
                             onPressed: () {
                               // cartBloc.add( OnMakePayment(amount: '${ (productBloc.state.total * 100 ).floor() }', creditCardFrave: cartBloc.state.creditCardFrave ) );
-                              productBloc
-                                  .add(OnSaveProductsBuyToDatabaseEvent(snapshot.data!.uidKeranjang.toString()));
+                              productBloc.add(OnSaveProductsBuyToDatabaseEvent(
+                                  total,
+                                  ongkir,
+                                  snapshot.data!.uidKeranjang.toString()));
                             },
                           ),
                         )
