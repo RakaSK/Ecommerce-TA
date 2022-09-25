@@ -13,7 +13,7 @@ class StreetAddressCheckout extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(top: 10.0),
-      padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 15.0),
+      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
       color: Colors.white,
       height: 96,
       child: Column(
@@ -47,7 +47,7 @@ class StreetAddressCheckout extends StatelessWidget {
               builder: (_, state) => state.user != null
                   ? state.user!.address == ''
                       ? const TextFrave(
-                          text: 'Without Street Address', fontSize: 18)
+                          text: 'Masukkan Alamat Tujuan!', fontSize: 18)
                       : TextFrave(text: '${state.user!.address}', fontSize: 18)
                   : const ShimmerFrave())
         ],

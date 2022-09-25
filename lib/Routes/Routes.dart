@@ -1,5 +1,6 @@
 import 'package:e_commers/ui/Views/Home/home_page.dart';
 import 'package:e_commers/ui/Views/Profile/profile_page.dart';
+import 'package:e_commers/ui/Views/Profile/shopping/shopping_page.dart';
 import 'package:e_commers/ui/Views/cart/cart_page.dart';
 import 'package:e_commers/ui/Views/favorite/favorite_page.dart';
 import 'package:flutter/material.dart';
@@ -17,4 +18,5 @@ Map<String, Widget Function(BuildContext context)> routes = {
   'cartPage': (context) => CartPage(),
   'favoritePage': (context) => FavoritePage(),
   'profilePage': (context) => ProfilePage(),
+  'shoppingPage': (context) => ShoppingPage(),
 };

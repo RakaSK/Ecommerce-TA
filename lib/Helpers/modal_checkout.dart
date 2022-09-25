@@ -1,6 +1,6 @@
 part of 'helpers.dart';
 
-void modalSuccess(BuildContext context, String text,
+void modalCheckout(BuildContext context, String text,
     {required VoidCallback onPressed}) {
   showDialog(
     context: context,
@@ -20,10 +20,10 @@ void modalSuccess(BuildContext context, String text,
                   Row(
                     children: const [
                       TextFrave(
-                          text: 'DNI ',
+                          text: 'HEHEHEEHEHE ',
                           color: ColorsFrave.primaryColorFrave,
                           fontWeight: FontWeight.w500),
-                      TextFrave(text: 'Shop', fontWeight: FontWeight.w500),
+                      TextFrave(text: 'GGG', fontWeight: FontWeight.w500),
                     ],
                   ),
                   GestureDetector(
@@ -60,7 +60,11 @@ void modalSuccess(BuildContext context, String text,
               TextFrave(text: text, fontSize: 17, fontWeight: FontWeight.w400),
               const SizedBox(height: 30.0),
               InkWell(
-                onTap: onPressed,
+                onTap: () {
+                  // Navigator.of(context).pop();
+                  Navigator.push(context, routeFade(page: ShoppingPage()));
+                  Navigator.of(context1).pop();
+                },
                 child: Container(
                   alignment: Alignment.center,
                   height: 35,

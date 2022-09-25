@@ -257,7 +257,7 @@ class _DetailsKeranjang extends StatelessWidget {
                         onPressed: () {
                           if (keranjang.keranjang.isNotEmpty) {
                             Navigator.push(
-                                context, routeSlide(page: CheckOutPage()));
+                                context, routeSlide(page: CheckOutPage()), );
                           }
                         },
                       ),

@@ -7,14 +7,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class OpsiPengiriman extends StatelessWidget {
-  const OpsiPengiriman({Key? key}) : super(key: key);
+  final String Kota;
+  OpsiPengiriman({Key? key, this.Kota = 'Masukkan Kota Tujuan!'})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
         margin: const EdgeInsets.only(top: 10.0),
-        padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-        height: 113,
+        padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
+        height: 90,
         color: Colors.white,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -36,33 +38,15 @@ class OpsiPengiriman extends StatelessWidget {
                                 color: Colors.blue,
                                 fontSize: 18)),
                     onTap: () =>
-                        Navigator.push(context, routeSlide(page: OpsiKirim())))
+                        Navigator.push(context, routeSlide(page: Home())))
               ],
             ),
-            const Divider(),
+            Divider(),
             const SizedBox(height: 5.0),
             BlocBuilder<CartBloc, CartState>(
                 builder: (_, state) => (!state.cardActive!)
-                    ? const TextFrave(text: 'Kota belum dipilih', fontSize: 18)
-                    : Container(
-                        // padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                        // color: Color(0xfff5f5f5),
-                        // child: Row(
-                        //   children: [
-                        //     SizedBox(
-                        //         height: 50,
-                        //         width: 50,
-                        //         child: SvgPicture.asset(
-                        //             'assets/${state.creditCardFrave!.brand}.svg')),
-                        //     const SizedBox(width: 15.0),
-                        //     TextFrave(
-                        //       text:
-                        //           '**** **** **** ${state.creditCardFrave!.cardNumberHidden}',
-                        //       fontSize: 18,
-                        //     )
-                        //   ],
-                        // ),
-                        ))
+                    ? TextFrave(text: Kota, fontSize: 18)
+                    : Container())
           ],
         ));
   }

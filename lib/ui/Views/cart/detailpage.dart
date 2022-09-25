@@ -13,9 +13,15 @@ class DetailPage extends StatefulWidget {
   final String? berat;
   final String? kurir;
   final String? order;
+  final String? nama_kota_tujuan;
 
   DetailPage(
-      {this.kota_asal, this.kota_tujuan, this.berat, this.kurir, this.order});
+      {this.kota_asal,
+      this.kota_tujuan,
+      this.berat,
+      this.kurir,
+      this.order,
+      this.nama_kota_tujuan});
 
   @override
   State<DetailPage> createState() => _DetailPageState();
@@ -55,6 +61,8 @@ class _DetailPageState extends State<DetailPage> {
       ).then((value) {
         var data = jsonDecode(value.body);
 
+        print(data);
+
         setState(() {
           _data = data['rajaongkir']['results'][0]['costs'];
         });
@@ -78,8 +86,11 @@ class _DetailPageState extends State<DetailPage> {
             onTap: () {
               BlocProvider.of<OngkirBloc>(context).add(PilihOngkirEvent(
                   Ongkir: _data[index]['cost'][0]['value'].toString(),
-                  Order: "0"));
+                  Order: "0",
+                  Estimasi: _data[index]['cost'][0]['etd'].toString(),
+                  Kota: widget.nama_kota_tujuan!));
               Navigator.push(context, routeSlide(page: CheckOutPage()));
+              print(widget.nama_kota_tujuan);
             },
             title: Text("${_data[index]['service']}"),
             subtitle: Text("${_data[index]['description']}"),

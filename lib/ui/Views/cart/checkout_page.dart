@@ -40,20 +40,13 @@ class CheckOutPage extends StatelessWidget {
           Navigator.pop(context);
           errorMessageSnack(context, state.error);
         } else if (state is SuccessProductState) {
-          Navigator.pop(context);
+          // Navigator.pop(context);
           modalSuccess(context,
               'Pembelian belum selesai !! Silahkan masuk ke history belanja untuk upload bukti pembayaran !!',
               onPressed: () {
-            productBloc.add(OnClearProductsEvent());
-            Navigator.pushAndRemoveUntil(
-                context, routeFade(page: ShoppingPage()), (_) => false);
-            // Navigator.pushAndRemoveUntil(
-            //     context,
-            //     routeFade(
-            //         page: PaymentPage(
-            //       title: 'Go',
-            //     )),
-            //     (_) => false);
+            // productBloc.add(OnClearProductsEvent());
+            // Navigator.pop(context);
+            Navigator.push(context, routeFade(page: ShoppingPage()));
           });
         }
       },
@@ -85,52 +78,80 @@ class CheckOutPage extends StatelessWidget {
                   } else {
                     return Column(
                       children: [
-                        const OpsiPengiriman(),
-                        Container(
-                          margin: const EdgeInsets.only(top: 10.0),
-                          padding: const EdgeInsets.all(15.0),
-                          height: 100,
-                          color: Colors.white,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: const [
-                              TextFrave(
-                                  text: 'Delivery Details',
-                                  fontSize: 19,
-                                  fontWeight: FontWeight.w600),
-                              Divider(),
-                              TextFrave(
-                                  text: 'Stander Delivery (3-4 days)',
-                                  fontSize: 18),
-                            ],
-                          ),
-                        ),
                         BlocBuilder<OngkirBloc, OngkirState>(
                             builder: ((context, state) {
                           if (state is OngkirInitial) {
                             return Container(
-                              margin: const EdgeInsets.only(top: 10),
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 20.0, vertical: 10.0),
-                              height: 60,
-                              color: Colors.white,
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  const TextFrave(
-                                    text: 'Cek Ongkir',
-                                    fontSize: 19,
-                                  ),
-                                  TextFrave(
-                                    // text: '\Rp ${productBloc.state.total.toInt()}',
-                                    // text: '\eRPe ${keranjang.amount.toStringAsFixed(0)}',
-                                    text: "0",
-                                    fontSize: 19,
-                                  )
-                                ],
-                              ),
-                            );
+                                margin: const EdgeInsets.only(top: 10),
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 5.0, vertical: 10.0),
+                                height: 280,
+                                color: Colors.white,
+                                child: Column(
+                                  children: [
+                                    OpsiPengiriman(),
+                                    Container(
+                                      // margin: const EdgeInsets.only(top: 10.0),
+                                      padding: const EdgeInsets.all(15.0),
+                                      height: 90,
+                                      color: Colors.white,
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          TextFrave(
+                                              text: 'Estimasi Pengiriman',
+                                              fontSize: 19,
+                                              fontWeight: FontWeight.w600),
+                                          Divider(),
+                                          TextFrave(
+                                              text: 'Masukkan Kota Tujuan!',
+                                              fontSize: 18),
+                                          // Row(
+                                          //   mainAxisAlignment:
+                                          //       MainAxisAlignment.spaceBetween,
+                                          //   children: [
+                                          //     const TextFrave(
+                                          //       text: 'Harga Ongkir',
+                                          //       fontSize: 19,
+                                          //     ),
+                                          //     TextFrave(
+                                          //       text: "0",
+                                          //       fontSize: 19,
+                                          //     )
+                                          //   ],
+                                          // ),
+                                        ],
+                                      ),
+                                    ),
+                                    Container(
+                                      padding: const EdgeInsets.all(17.0),
+                                      // height: 100,
+                                      color: Colors.white,
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              const TextFrave(
+                                                text: 'Harga Ongkir',
+                                                fontSize: 19,
+                                                fontWeight: FontWeight.w600,
+                                              ),
+                                              TextFrave(
+                                                text: "0",
+                                                fontSize: 19,
+                                              )
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ));
                           } else if (state is SetOngkir) {
                             ongkir = int.parse(state.Ongkir);
                             print("SetOngkir");
@@ -141,22 +162,73 @@ class CheckOutPage extends StatelessWidget {
                             return Container(
                               margin: const EdgeInsets.only(top: 10),
                               padding: const EdgeInsets.symmetric(
-                                  horizontal: 20.0, vertical: 10.0),
-                              height: 60,
+                                  horizontal: 5.0, vertical: 10.0),
+                              height: 280,
                               color: Colors.white,
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                              child: Column(
                                 children: [
-                                  const TextFrave(
-                                    text: 'Cek Ongkir',
-                                    fontSize: 19,
+                                  OpsiPengiriman(
+                                    Kota: state.Kota,
                                   ),
-                                  TextFrave(
-                                    // text: '\Rp ${productBloc.state.total.toInt()}',
-                                    // text: '\eRPe ${keranjang.amount.toStringAsFixed(0)}',
-                                    text: state.Ongkir,
-                                    fontSize: 19,
+                                  Container(
+                                    margin: const EdgeInsets.only(top: 10.0),
+                                    padding: const EdgeInsets.all(15.0),
+                                    height: 90,
+                                    color: Colors.white,
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        TextFrave(
+                                            text: 'Estimasi Pengiriman',
+                                            fontSize: 19,
+                                            fontWeight: FontWeight.w600),
+                                        Divider(),
+                                        TextFrave(
+                                            text: '${state.Estimasi} Days',
+                                            fontSize: 18),
+                                        // Row(
+                                        //   mainAxisAlignment:
+                                        //       MainAxisAlignment.spaceBetween,
+                                        //   children: [
+                                        //     const TextFrave(
+                                        //       text: 'Harga Ongkir',
+                                        //       fontSize: 19,
+                                        //     ),
+                                        //     TextFrave(
+                                        //       text: state.Ongkir,
+                                        //       fontSize: 19,
+                                        //     )
+                                        //   ],
+                                        // ),
+                                      ],
+                                    ),
+                                  ),
+                                  Container(
+                                    padding: const EdgeInsets.all(17.0),
+                                    // height: 100,
+                                    color: Colors.white,
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            const TextFrave(
+                                              text: 'Harga Ongkir',
+                                              fontSize: 19,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                            TextFrave(
+                                              text: '\Rp. ${state.Ongkir}',
+                                              fontSize: 19,
+                                            )
+                                          ],
+                                        ),
+                                      ],
+                                    ),
                                   )
                                 ],
                               ),
@@ -175,13 +247,15 @@ class CheckOutPage extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               const TextFrave(
-                                text: 'Order',
+                                text: ' Harga Order',
                                 fontSize: 19,
+                                fontWeight: FontWeight.w600,
                               ),
                               TextFrave(
                                 // text: '\Rp ${productBloc.state.total.toInt()}',
                                 // text: '\eRPe ${keranjang.amount.toStringAsFixed(0)}',
-                                text: snapshot.data!.amount.toString(),
+                                text:
+                                    '\Rp. ${snapshot.data!.amount.toString()}',
                                 fontSize: 19,
                               )
                             ],
@@ -199,6 +273,7 @@ class CheckOutPage extends StatelessWidget {
                               const TextFrave(
                                 text: 'Total',
                                 fontSize: 19,
+                                fontWeight: FontWeight.w600,
                               ),
                               BlocBuilder<TotalBloc, TotalState>(
                                   builder: ((context, state) {
@@ -212,7 +287,7 @@ class CheckOutPage extends StatelessWidget {
                                   total = int.parse(state.Total);
                                   return TextFrave(
                                     // text: '\Rp ${productBloc.state.total.toInt()}',
-                                    text: state.Total,
+                                    text: '\Rp. ${state.Total}',
                                     fontSize: 19,
                                   );
                                 } else {
@@ -234,6 +309,8 @@ class CheckOutPage extends StatelessWidget {
                             width: size.width,
                             onPressed: () {
                               // cartBloc.add( OnMakePayment(amount: '${ (productBloc.state.total * 100 ).floor() }', creditCardFrave: cartBloc.state.creditCardFrave ) );
+                              BlocProvider.of<OngkirBloc>(context)
+                                  .add(deleteongkirevent());
                               productBloc.add(OnSaveProductsBuyToDatabaseEvent(
                                   total,
                                   ongkir,

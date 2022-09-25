@@ -1,5 +1,6 @@
 import 'package:e_commers/Helpers/helpers.dart';
 import 'package:e_commers/Service/pembayaran_services.dart';
+import 'package:e_commers/ui/Views/Home/home_page.dart';
 import 'package:e_commers/ui/Views/Profile/shopping/order_details_page.dart';
 import 'package:flutter/material.dart';
 import 'package:e_commers/Models/Response/response_order_buy.dart';
@@ -12,59 +13,67 @@ import 'package:timeago/timeago.dart' as timeago;
 class ShoppingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Color(0xfff5f5f5),
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: const TextFrave(
-            text: 'Dibeli',
-            color: Colors.black87,
-            fontWeight: FontWeight.w500,
-            fontSize: 20),
-        centerTitle: true,
-        elevation: 0,
-        leading: InkWell(
-          onTap: () => Navigator.pop(context),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
-              Icon(Icons.arrow_back_ios_new_rounded, color: Colors.black)
+    Future<bool> _onWillPop() async {
+      return await Navigator.push(context, routeSlide(page: HomePage())) ??
+          false;
+    }
+
+    return new WillPopScope(
+        onWillPop: _onWillPop,
+        child: new Scaffold(
+          backgroundColor: Color(0xfff5f5f5),
+          appBar: AppBar(
+            backgroundColor: Colors.white,
+            title: const TextFrave(
+                text: 'Dibeli',
+                color: Colors.black87,
+                fontWeight: FontWeight.w500,
+                fontSize: 20),
+            centerTitle: true,
+            elevation: 0,
+            leading: InkWell(
+              onTap: () =>
+                  Navigator.push(context, routeSlide(page: HomePage())),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Icon(Icons.arrow_back_ios_new_rounded, color: Colors.black)
+                ],
+              ),
+            ),
+            // leading: IconButton(
+            //   splashRadius: 20,
+            //   icon:
+            //       const Icon(Icons.arrow_back_ios_new_rounded, color: Colors.black),
+            //   onPressed: () => Navigator.pop(context),
+            // ),
+            actions: [
+              TextButton(
+                  onPressed: () {
+                    modalInfoBank(
+                      context,
+                      'Transfer pembayaranmu ke No. Rekening di bawah\n\nBNI\nRaka Surya Kusuma\n0836776299',
+                      // onPressed: () => Navigator.push(
+                      //     context, routeSlide(page: ShoppingPage()))
+                      onPressed: () => Navigator.pop(context),
+                    );
+                  },
+                  child: const TextFrave(
+                    text: 'Info Bank',
+                    color: ColorsFrave.primaryColorFrave,
+                    fontSize: 18,
+                  ))
             ],
           ),
-        ),
-        // leading: IconButton(
-        //   splashRadius: 20,
-        //   icon:
-        //       const Icon(Icons.arrow_back_ios_new_rounded, color: Colors.black),
-        //   onPressed: () => Navigator.pop(context),
-        // ),
-        actions: [
-          TextButton(
-              onPressed: () {
-                modalInfoBank(
-                  context,
-                  'Transfer pembayaranmu ke No. Rekening di bawah\n\nBNI\nRaka Surya Kusuma\n0836776299',
-                  // onPressed: () => Navigator.push(
-                  //     context, routeSlide(page: ShoppingPage()))
-                  onPressed: () => Navigator.pop(context),
-                );
-              },
-              child: const TextFrave(
-                text: 'Info Bank',
-                color: ColorsFrave.primaryColorFrave,
-                fontSize: 18,
-              ))
-        ],
-      ),
-      body: FutureBuilder<List<OrderBuy>>(
-        future: pembayaranServices.getPurchasedProducts(),
-        builder: (_, snapshot) {
-          return (!snapshot.hasData)
-              ? const ShimmerFrave()
-              : _DetailsProductsBuy(ordersBuy: snapshot.data!);
-        },
-      ),
-    );
+          body: FutureBuilder<List<OrderBuy>>(
+            future: pembayaranServices.getPurchasedProducts(),
+            builder: (_, snapshot) {
+              return (!snapshot.hasData)
+                  ? const ShimmerFrave()
+                  : _DetailsProductsBuy(ordersBuy: snapshot.data!);
+            },
+          ),
+        ));
   }
 }
 
