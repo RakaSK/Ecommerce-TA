@@ -133,7 +133,7 @@ class _HomeState extends State<Home> {
                 return dataKota;
               },
             ),
-            SizedBox(height: 20),
+            SizedBox(height: 30),
             // TextField(
             //   //input hanya angka
             //   keyboardType: TextInputType.number,
@@ -145,8 +145,8 @@ class _HomeState extends State<Home> {
             //     berat = text;
             //   },
             // ),
-            Text("Berat = $berat"),
-            SizedBox(height: 20),
+            Text("Berat Paket (gram) = $berat"),
+            SizedBox(height: 30),
             DropdownSearch<String>(
                 mode: Mode.MENU,
                 showSelectedItems: true,

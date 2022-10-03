@@ -26,13 +26,13 @@ void modalSuccess(BuildContext context, String text,
                       TextFrave(text: 'Shop', fontWeight: FontWeight.w500),
                     ],
                   ),
-                  GestureDetector(
-                    onTap: () {
-                      print("X");
-                      Navigator.of(context1).pop();
-                    },
-                    child: Text("X"),
-                  )
+                  // GestureDetector(
+                  //   onTap: () {
+                  //     print("X");
+                  //     Navigator.of(context1).pop();
+                  //   },
+                  //   child: Text("X"),
+                  // )
                 ],
               ),
               const Divider(),

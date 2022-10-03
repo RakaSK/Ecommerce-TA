@@ -9,3 +9,7 @@ class PilihTotalEvent extends TotalEvent {
 
   PilihTotalEvent({required this.Total, required this.Ongkir});
 }
+
+class DeleteTotalEvent extends TotalEvent {
+  DeleteTotalEvent();
+}

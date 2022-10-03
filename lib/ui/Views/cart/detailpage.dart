@@ -88,7 +88,7 @@ class _DetailPageState extends State<DetailPage> {
                   Ongkir: _data[index]['cost'][0]['value'].toString(),
                   Order: "0",
                   Estimasi: _data[index]['cost'][0]['etd'].toString(),
-                  Kota: widget.nama_kota_tujuan!));
+                  Kota: widget.nama_kota_tujuan!.toString()));
               Navigator.push(context, routeSlide(page: CheckOutPage()));
               print(widget.nama_kota_tujuan);
             },

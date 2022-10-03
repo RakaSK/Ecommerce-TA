@@ -65,7 +65,7 @@ class KeranjangServices {
     return ResponseKeranjang.fromJson(jsonDecode(response.body));
   }
 
-  Future<Keranjang1> getKeranjang() async {
+  Future<Keranjang1> getKeranjangHarga() async {
     final token = await secureStorage.readToken();
     // print(token);
 
@@ -75,7 +75,7 @@ class KeranjangServices {
 
     final body = json.encode(data);
     final response = await http.post(
-        Uri.parse('${URLS.urlApi}/product/get-all-keranjang-products'),
+        Uri.parse('${URLS.urlApi}/product/get-keranjang-harga-products'),
         headers: {'Content-type': 'application/json', 'xxx-token': token!},
         body: body);
 

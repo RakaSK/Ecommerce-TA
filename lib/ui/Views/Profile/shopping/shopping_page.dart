@@ -65,12 +65,12 @@ class ShoppingPage extends StatelessWidget {
                   ))
             ],
           ),
-          body: FutureBuilder<List<OrderBuy>>(
+          body: FutureBuilder<ResponseOrderBuy>(
             future: pembayaranServices.getPurchasedProducts(),
             builder: (_, snapshot) {
               return (!snapshot.hasData)
                   ? const ShimmerFrave()
-                  : _DetailsProductsBuy(ordersBuy: snapshot.data!);
+                  : _DetailsProductsBuy(orderBuy: snapshot.data!);
             },
           ),
         ));
@@ -78,94 +78,204 @@ class ShoppingPage extends StatelessWidget {
 }
 
 class _DetailsProductsBuy extends StatelessWidget {
-  final List<OrderBuy> ordersBuy;
+  // final List<OrderBuy> ordersBuy;
+  final ResponseOrderBuy orderBuy;
 
-  const _DetailsProductsBuy({Key? key, required this.ordersBuy})
+  const _DetailsProductsBuy({Key? key, required this.orderBuy})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      physics: const BouncingScrollPhysics(),
-      padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
-      itemCount: ordersBuy.length,
-      itemBuilder: (_, i) => InkWell(
-        onTap: () => Navigator.push(
-            context,
-            routeSlide(
-                page: OrderDetailsPage(
-                    uidOrder: ordersBuy[i].uidOrderBuy.toString()))),
-        child: Container(
-          height: 180,
-          padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
-          margin: EdgeInsets.only(bottom: 15.0),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15.0),
-              // color: Colors.white,
-              color: (ordersBuy[i].status == '0')
-                  ? Colors.red[100]
-                  : Colors.green[100]),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              TextFrave(
-                  text: ordersBuy[i].receipt,
-                  fontSize: 21,
-                  color: ColorsFrave.primaryColorFrave,
-                  fontWeight: FontWeight.w500),
-              const SizedBox(height: 10.0),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const TextFrave(
-                      text: 'Nama ', fontSize: 18, color: Colors.grey),
-                  TextFrave(text: ordersBuy[i].users, fontSize: 18),
-                ],
+    final mediaQuery = MediaQuery.of(context);
+
+    return !orderBuy.resp
+        ? Container(
+            height: MediaQuery.of(context).size.height / 1.5,
+            child: Center(
+              child: Text(orderBuy.msg),
+            ))
+        : Stack(children: [
+            Container(
+              child: ListView.builder(
+                physics: const BouncingScrollPhysics(),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 15.0, vertical: 10.0),
+                itemCount: orderBuy.orderBuy.length,
+                itemBuilder: (_, i) => InkWell(
+                  onTap: () => Navigator.push(
+                      context,
+                      routeSlide(
+                          page: OrderDetailsPage(
+                              uidOrder: orderBuy.orderBuy[i].uidOrderBuy
+                                  .toString()))),
+                  child: Container(
+                    // height: 180,
+                    height: mediaQuery.size.height * 0.56,
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
+                    margin: EdgeInsets.only(bottom: 15.0),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15.0),
+                        // color: Colors.white,
+                        color: (orderBuy.orderBuy[i].status == '0')
+                            ? Colors.red[100]
+                            : Colors.green[100]),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        TextFrave(
+                            text: orderBuy.orderBuy[i].receipt,
+                            fontSize: 22,
+                            color: ColorsFrave.primaryColorFrave,
+                            fontWeight: FontWeight.w500),
+                        const SizedBox(height: 20.0),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const TextFrave(
+                                text: 'Nama ',
+                                fontSize: 18,
+                                color: Colors.black,
+                                fontWeight: FontWeight.w500),
+                            TextFrave(
+                                text: orderBuy.orderBuy[i].users, fontSize: 18),
+                          ],
+                        ),
+                        const SizedBox(height: 14.0),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const TextFrave(
+                                text: 'Email ',
+                                fontSize: 18,
+                                color: Colors.black,
+                                fontWeight: FontWeight.w500),
+                            TextFrave(
+                                text: orderBuy.orderBuy[i].email, fontSize: 18),
+                          ],
+                        ),
+                        const SizedBox(height: 14.0),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const TextFrave(
+                                text: 'Tanggal ',
+                                fontSize: 18,
+                                color: Colors.black,
+                                fontWeight: FontWeight.w500),
+                            TextFrave(
+                                text: orderBuy
+                                        .orderBuy[i].createdAt.day
+                                        .toString() +
+                                    "-" +
+                                    orderBuy.orderBuy[i].createdAt.month
+                                        .toString() +
+                                    "-" +
+                                    orderBuy.orderBuy[i].createdAt.year
+                                        .toString() +
+                                    " " +
+                                    orderBuy.orderBuy[i].createdAt.hour
+                                        .toString() +
+                                    ":" +
+                                    orderBuy.orderBuy[i].createdAt.minute
+                                        .toString(),
+                                fontSize: 18),
+                          ],
+                        ),
+                        const SizedBox(height: 14.0),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const TextFrave(
+                                text: 'Kota Tujuan',
+                                fontSize: 18,
+                                color: Colors.black,
+                                fontWeight: FontWeight.w500),
+                            TextFrave(
+                                text: '${orderBuy.orderBuy[i].kota_tujuan}',
+                                fontSize: 18),
+                          ],
+                        ),
+                        const SizedBox(height: 14.0),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          // children: [
+                          //   const TextFrave(
+                          //       text: 'Alamat Pengiriman',
+                          //       fontSize: 18,
+                          //       color: Colors.black,
+                          //       fontWeight: FontWeight.w500),
+                          //   TextFrave(text: '${ordersBuy[i].address}', fontSize: 20),
+                          // ],
+                          children: <Widget>[
+                            const TextFrave(
+                                text: 'Alamat Pengiriman',
+                                fontSize: 18,
+                                color: Colors.black,
+                                fontWeight: FontWeight.w500),
+                            Flexible(
+                              child: new Text(
+                                '${orderBuy.orderBuy[i].address}',
+                                textAlign: TextAlign.right,
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontFamily: 'Roboto',
+                                  // letterSpacing: 2,
+                                  // wordSpacing: 3,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 14.0),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const TextFrave(
+                                text: 'Estimasi Pengiriman',
+                                fontSize: 18,
+                                color: Colors.black,
+                                fontWeight: FontWeight.w500),
+                            TextFrave(
+                              text: '${orderBuy.orderBuy[i].estimasi} \Days',
+                              fontSize: 18,
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 14.0),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const TextFrave(
+                                text: 'Harga Ongkir',
+                                fontSize: 18,
+                                color: Colors.black,
+                                fontWeight: FontWeight.w500),
+                            TextFrave(
+                                text: '\Rp. ${orderBuy.orderBuy[i].ongkir}',
+                                fontSize: 18),
+                          ],
+                        ),
+                        const SizedBox(height: 14.0),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const TextFrave(
+                                text: 'Total harga ',
+                                fontSize: 18,
+                                color: Colors.black,
+                                fontWeight: FontWeight.w500),
+                            TextFrave(
+                                text: '\Rp. ${orderBuy.orderBuy[i].amount}',
+                                fontSize: 18),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
               ),
-              const SizedBox(height: 10.0),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const TextFrave(
-                      text: 'Email ', fontSize: 18, color: Colors.grey),
-                  TextFrave(text: ordersBuy[i].email, fontSize: 18),
-                ],
-              ),
-              const SizedBox(height: 10.0),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const TextFrave(
-                      text: 'Tanggal ', fontSize: 18, color: Colors.grey),
-                  TextFrave(
-                      text: ordersBuy[i].createdAt.day.toString() +
-                          "-" +
-                          ordersBuy[i].createdAt.month.toString() +
-                          "-" +
-                          ordersBuy[i].createdAt.year.toString() +
-                          " " +
-                          ordersBuy[i].createdAt.hour.toString() +
-                          ":" +
-                          ordersBuy[i].createdAt.minute.toString(),
-                      fontSize: 18),
-                ],
-              ),
-              const SizedBox(height: 10.0),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const TextFrave(
-                      text: 'Total harga ', fontSize: 18, color: Colors.grey),
-                  TextFrave(
-                      text: '\Rp ${ordersBuy[i].amount}',
-                      fontSize: 20,
-                      fontWeight: FontWeight.w500),
-                ],
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
+            ),
+          ]);
   }
 }

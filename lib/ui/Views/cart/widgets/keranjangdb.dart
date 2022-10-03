@@ -239,7 +239,7 @@ class _DetailsKeranjang extends StatelessWidget {
                                 fontWeight: FontWeight.w500),
                             TextFrave(
                                 text:
-                                    '\eRPe ${keranjang.amount.toStringAsFixed(0)}',
+                                    '\Rp. ${keranjang.amount.toStringAsFixed(0)}',
                                 // text: '\Rp ${keranjang[i].amount}',
                                 fontSize: 24,
                                 fontWeight: FontWeight.bold,
@@ -257,7 +257,9 @@ class _DetailsKeranjang extends StatelessWidget {
                         onPressed: () {
                           if (keranjang.keranjang.isNotEmpty) {
                             Navigator.push(
-                                context, routeSlide(page: CheckOutPage()), );
+                              context,
+                              routeSlide(page: CheckOutPage()),
+                            );
                           }
                         },
                       ),

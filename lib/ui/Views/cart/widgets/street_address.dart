@@ -11,11 +11,13 @@ class StreetAddressCheckout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final mediaQuery = MediaQuery.of(context);
     return Container(
       margin: const EdgeInsets.only(top: 10.0),
       padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
       color: Colors.white,
-      height: 96,
+      // height: 110,
+      height: mediaQuery.size.height * 0.17,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

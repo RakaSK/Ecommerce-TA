@@ -16,6 +16,6 @@ class PilihOngkirEvent extends OngkirEvent {
       required this.Kota});
 }
 
-class deleteongkirevent extends OngkirEvent {
-  deleteongkirevent();
+class DeleteOngkirEvent extends OngkirEvent {
+  DeleteOngkirEvent();
 }

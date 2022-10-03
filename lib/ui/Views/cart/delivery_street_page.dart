@@ -85,18 +85,36 @@ class _DeliveryPageState extends State<DeliveryPage> {
                           ? Container(
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 15.0, vertical: 10.0),
-                              height: 70,
+                              height: 100,
                               width: size.width,
                               decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10.0),
+                                  borderRadius: BorderRadius.circular(30.0),
                                   border: Border.all(color: Colors.blue)),
+                              // child: Row(
+                              //   mainAxisAlignment:
+                              //       MainAxisAlignment.spaceBetween,
+                              //   children: [
+                              //     TextFrave(
+                              //       text: '${state.user!.address}',
+                              //       maxLines: 10,
+                              //       fontSize: 18,
+                              //     ),
+                              //     Icon(Icons.radio_button_checked_rounded,
+                              //         size: 31, color: Colors.blue)
+                              //   ],
+                              // ),
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
-                                children: [
-                                  TextFrave(
-                                    text: '${state.user!.address}',
-                                    fontSize: 18,
+                                children: <Widget>[
+                                  Flexible(
+                                    child: new Text(
+                                      '${state.user!.address}',
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                        fontFamily: 'Roboto',
+                                      ),
+                                    ),
                                   ),
                                   Icon(Icons.radio_button_checked_rounded,
                                       size: 31, color: Colors.blue)

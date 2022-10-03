@@ -34,17 +34,18 @@ class AppBarCart extends StatelessWidget {
                       fontWeight: FontWeight.w600)),
             ],
           ),
-          Container(
-              child: BlocBuilder<ProductBloc, ProductState>(
-                  builder: (_, state) => state.products != null
-                      ? TextFrave(
-                          text: '${state.products!.length} items',
-                          fontSize: 19,
-                          color: Colors.black54)
-                      : TextFrave(
-                          text: 'ITEM kosong',
-                          fontSize: 19,
-                          color: Colors.black54))),
+          // Container(
+          //     // child: BlocBuilder<ProductBloc, ProductState>(
+          //     child: BlocBuilder<ProductBloc, ProductState>(
+          //         builder: (_, state) => state.products != null
+          //             ? TextFrave(
+          //                 text: '${state.products!.length} items',
+          //                 fontSize: 19,
+          //                 color: Colors.black54)
+          //             : TextFrave(
+          //                 text: 'ITEM kosong',
+          //                 fontSize: 19,
+          //                 color: Colors.black54))),
         ],
       ),
     );

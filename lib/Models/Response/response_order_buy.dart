@@ -37,30 +37,43 @@ class OrderBuy {
     required this.uidOrderBuy,
     required this.userId,
     required this.users,
+    required this.address,
     required this.email,
     required this.receipt,
     required this.createdAt,
     required this.amount,
+    required this.ongkir,
+    required this.kota_tujuan,
+    required this.estimasi,
     required this.status,
   });
 
   int uidOrderBuy;
   int userId;
   String users;
+  String address;
   String email;
   String receipt;
   DateTime createdAt;
   int amount;
+  int ongkir;
+  String kota_tujuan;
+  String estimasi;
+
   String status;
 
   factory OrderBuy.fromJson(Map<String, dynamic> json) => OrderBuy(
         uidOrderBuy: json["uidOrderBuy"],
         userId: json["user_id"],
         users: json["users"],
+        address: json["address"],
         email: json["email"],
         receipt: json["receipt"],
         createdAt: DateTime.parse(json["created_at"]),
         amount: json["amount"],
+        ongkir: json["ongkir"],
+        kota_tujuan: json["kota_tujuan"],
+        estimasi: json["estimasi"],
         status: json["status"],
       );
 

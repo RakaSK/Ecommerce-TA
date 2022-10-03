@@ -9,6 +9,7 @@ part 'total_state.dart';
 class TotalBloc extends Bloc<TotalEvent, TotalState> {
   TotalBloc() : super(TotalInitial()) {
     on<PilihTotalEvent>(_showHideMenu);
+    on<DeleteTotalEvent>(deletetotal);
   }
 
   Future<void> _showHideMenu(
@@ -16,5 +17,10 @@ class TotalBloc extends Bloc<TotalEvent, TotalState> {
     int Total = int.parse(event.Total) + int.parse(event.Ongkir);
 
     emit(SetTotal(Total: Total.toString()));
+  }
+
+  Future<void> deletetotal(
+      DeleteTotalEvent event, Emitter<TotalState> emit) async {
+    emit(TotalInitial());
   }
 }

@@ -32,9 +32,11 @@ class OpsiPengiriman extends StatelessWidget {
                     child: BlocBuilder<CartBloc, CartState>(
                         builder: (context, state) => (!state.cardActive!)
                             ? const TextFrave(
-                                text: 'Add', color: Colors.blue, fontSize: 18)
+                                text: 'Tambah',
+                                color: Colors.blue,
+                                fontSize: 18)
                             : const TextFrave(
-                                text: 'Change',
+                                text: 'Ubah',
                                 color: Colors.blue,
                                 fontSize: 18)),
                     onTap: () =>

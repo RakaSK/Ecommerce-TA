@@ -3,7 +3,7 @@ import 'package:e_commers/Models/Response/response_keranjang.dart';
 import 'package:e_commers/ui/Views/Cart/widgets/details_product_cart.dart';
 import 'package:e_commers/ui/Views/Cart/widgets/without_product_cart.dart';
 import 'package:e_commers/ui/Views/cart/checkout_page.dart';
-import 'package:e_commers/ui/Views/cart/widgets/details_product_cart%20copy.dart';
+import 'package:e_commers/ui/Views/cart/widgets/keranjangdb.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:e_commers/ui/widgets/widgets.dart';

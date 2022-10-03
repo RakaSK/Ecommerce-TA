@@ -6,14 +6,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:e_commers/Bloc/user/user_bloc.dart';
 import 'package:e_commers/Helpers/helpers.dart';
 
-
-class InformationPage extends StatefulWidget{
+class InformationPage extends StatefulWidget {
   @override
   _InformationPageState createState() => _InformationPageState();
 }
 
 class _InformationPageState extends State<InformationPage> {
-
+  // late TextEditingController _fullnameController;
   late TextEditingController _firstnameController;
   late TextEditingController _lastnameController;
   late TextEditingController _phoneController;
@@ -21,16 +20,15 @@ class _InformationPageState extends State<InformationPage> {
   late TextEditingController _referenceController;
   final _keyForm = GlobalKey<FormState>();
 
-
   @override
   void initState() {
-    
     initData();
     super.initState();
   }
 
   @override
   void dispose() {
+    // _fullnameController.dispose();
     _firstnameController.dispose();
     _lastnameController.dispose();
     _phoneController.dispose();
@@ -39,8 +37,9 @@ class _InformationPageState extends State<InformationPage> {
     super.dispose();
   }
 
-  void initData(){
+  void initData() {
     final userBloc = BlocProvider.of<UserBloc>(context).state.user!;
+    // _fullnameController = TextEditingController(text: userBloc.fullName);
     _firstnameController = TextEditingController(text: userBloc.firstName);
     _lastnameController = TextEditingController(text: userBloc.lastName);
     _phoneController = TextEditingController(text: userBloc.phone);
@@ -49,24 +48,17 @@ class _InformationPageState extends State<InformationPage> {
   }
 
   @override
-  Widget build(BuildContext context){
-
+  Widget build(BuildContext context) {
     final userBloc = BlocProvider.of<UserBloc>(context);
 
     return BlocListener<UserBloc, UserState>(
       listener: (context, state) {
-
-        if( state is LoadingUserState ) {
-        
-          modalLoading(context, 'Checking...'); 
-        
-        }else if( state is FailureUserState ) {
-          
+        if (state is LoadingUserState) {
+          modalLoading(context, 'Checking...');
+        } else if (state is FailureUserState) {
           Navigator.pop(context);
-          errorMessageSnack(context, state.error); 
-        
-        } else if( state is SetUserState ){
-
+          errorMessageSnack(context, state.error);
+        } else if (state is SetUserState) {
           Navigator.pop(context);
         }
       },
@@ -75,26 +67,35 @@ class _InformationPageState extends State<InformationPage> {
         appBar: AppBar(
           backgroundColor: Colors.white,
           elevation: 0,
-          title: const TextFrave(text: 'My Profile', color: Colors.black, fontWeight: FontWeight.w500),
+          title: const TextFrave(
+              text: 'My Profile',
+              color: Colors.black,
+              fontWeight: FontWeight.w500),
           centerTitle: true,
           leading: IconButton(
             splashRadius: 20,
-            icon: const Icon(Icons.arrow_back_ios_rounded, color: Colors.black,),
+            icon: const Icon(
+              Icons.arrow_back_ios_rounded,
+              color: Colors.black,
+            ),
             onPressed: () => Navigator.of(context).pop(),
           ),
           actions: [
             TextButton(
-              onPressed: (){
-                userBloc.add(OnUpdateInformationUserEvent(
-                  _firstnameController.text.trim(), 
-                  _lastnameController.text.trim(), 
-                  _phoneController.text.trim(), 
-                  _addressController.text.trim(), 
-                  _referenceController.text.trim()
-                ));
-              }, 
-              child: const TextFrave(text: 'Save', color: ColorsFrave.primaryColorFrave, fontSize: 18,)
-            )
+                onPressed: () {
+                  userBloc.add(OnUpdateInformationUserEvent(
+                      // _fullnameController.text.trim(),
+                      _firstnameController.text.trim(),
+                      _lastnameController.text.trim(),
+                      _phoneController.text.trim(),
+                      _addressController.text.trim(),
+                      _referenceController.text.trim()));
+                },
+                child: const TextFrave(
+                  text: 'Save',
+                  color: ColorsFrave.primaryColorFrave,
+                  fontSize: 18,
+                ))
           ],
         ),
         body: Form(
@@ -104,47 +105,73 @@ class _InformationPageState extends State<InformationPage> {
             keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
             padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
             children: [
-
               const TextFrave(text: 'Account data', fontSize: 18),
               const SizedBox(height: 10.0),
               BlocBuilder<UserBloc, UserState>(
-                buildWhen: (previous, current) => previous != current,
-                builder: (context, state) 
-                => state.user != null
-                ? Container(
-                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                    height: 80,
-                    width: MediaQuery.of(context).size.width,
-                    decoration: BoxDecoration(
-                      color: Color(0xff4C98EE).withOpacity(.1),
-                      borderRadius: BorderRadius.circular(10.0)
-                    ),
-                    child: Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const TextFrave(text: 'User', fontSize: 18, fontWeight: FontWeight.w500),
-                            TextFrave(text: state.user!.users, fontSize: 18),
-                          ],
-                        ),
-                        SizedBox(height: 15.0),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const TextFrave(text: 'Email', fontSize: 18, fontWeight: FontWeight.w500),
-                            TextFrave(text: state.user!.email, fontSize: 18),
-                          ],
-                        ),
-                      ],
-                    ),
-                )
-                : const ShimmerFrave()
-              ),
-
+                  buildWhen: (previous, current) => previous != current,
+                  builder: (context, state) => state.user != null
+                      ? Container(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 10),
+                          height: 120,
+                          // height: MediaQuery.of(context).size.height,
+                          width: MediaQuery.of(context).size.width,
+                          decoration: BoxDecoration(
+                              color: Color(0xff4C98EE).withOpacity(.1),
+                              borderRadius: BorderRadius.circular(10.0)),
+                          child: Column(
+                            children: [
+                              // Row(
+                              //   mainAxisAlignment:
+                              //       MainAxisAlignment.spaceBetween,
+                              //   children: [
+                              //     const TextFrave(
+                              //         text: 'FullName',
+                              //         fontSize: 18,
+                              //         fontWeight: FontWeight.w500),
+                              //     TextFrave(
+                              //         text: state.user!.fullName, fontSize: 18),
+                              //   ],
+                              // ),
+                              // SizedBox(height: 15.0),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  const TextFrave(
+                                      text: 'User',
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w500),
+                                  TextFrave(
+                                      text: state.user!.users, fontSize: 18),
+                                ],
+                              ),
+                              SizedBox(height: 15.0),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  const TextFrave(
+                                      text: 'Email',
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w500),
+                                  TextFrave(
+                                      text: state.user!.email, fontSize: 18),
+                                ],
+                              ),
+                            ],
+                          ),
+                        )
+                      : const ShimmerFrave()),
               const SizedBox(height: 30.0),
               const TextFrave(text: 'Personal Information', fontSize: 18),
               const SizedBox(height: 10.0),
+              // TextFormFrave(
+              //   controller: _fullnameController,
+              //   hintText: 'Enter your Full Name',
+              //   prefixIcon: const Icon(Icons.person_outline_rounded),
+              // ),
+              // const SizedBox(height: 20.0),
               TextFormFrave(
                 controller: _firstnameController,
                 hintText: 'Enter your First Name',
@@ -180,7 +207,7 @@ class _InformationPageState extends State<InformationPage> {
             ],
           ),
         ),
-       ),
+      ),
     );
   }
 }

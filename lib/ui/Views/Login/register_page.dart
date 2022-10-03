@@ -14,6 +14,7 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
+  // late TextEditingController fullnameController;
   late TextEditingController userController;
   late TextEditingController emailController;
   late TextEditingController passowrdController;
@@ -22,6 +23,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
   @override
   void initState() {
+    // fullnameController = TextEditingController();
     userController = TextEditingController();
     emailController = TextEditingController();
     passowrdController = TextEditingController();
@@ -32,6 +34,7 @@ class _SignUpPageState extends State<SignUpPage> {
   @override
   void dispose() {
     clear();
+    // fullnameController.dispose();
     userController.dispose();
     emailController.dispose();
     passowrdController.dispose();
@@ -40,6 +43,7 @@ class _SignUpPageState extends State<SignUpPage> {
   }
 
   void clear() {
+    // fullnameController.clear();
     userController.clear();
     emailController.clear();
     passowrdController.clear();
@@ -107,6 +111,13 @@ class _SignUpPageState extends State<SignUpPage> {
               SizedBox(height: 5.0),
               TextFrave(text: 'Create Account', fontSize: 17),
               SizedBox(height: 20.0),
+              // TextFormFrave(
+              //   hintText: 'Fullname',
+              //   prefixIcon: Icon(Icons.person),
+              //   controller: fullnameController,
+              //   validator: RequiredValidator(errorText: 'Fullname is required'),
+              // ),
+              // SizedBox(height: 15.0),
               TextFormFrave(
                 hintText: 'Username',
                 prefixIcon: Icon(Icons.person),
@@ -160,6 +171,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
                     userBloc.add(OnAddNewUser(
+                        // fullnameController.text.trim(),
                         userController.text.trim(),
                         emailController.text.trim(),
                         passowrdController.text.trim()));

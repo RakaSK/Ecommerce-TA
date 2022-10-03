@@ -5,7 +5,7 @@ import 'package:e_commers/Service/urls.dart';
 import 'package:e_commers/ui/Views/Home/home_page.dart';
 import 'package:e_commers/ui/Views/Profile/profile_page.dart';
 import 'package:e_commers/ui/Views/cart/cart_page.dart';
-import 'package:e_commers/ui/Views/cart/widgets/details_product_cart%20copy.dart';
+import 'package:e_commers/ui/Views/cart/widgets/keranjangdb.dart';
 import 'package:e_commers/ui/Views/favorite/favorite_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

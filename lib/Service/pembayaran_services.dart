@@ -30,11 +30,16 @@ class PembayaranServices {
   }
 
   Future<ResponseDefault> saveOrderBuyProductToDatabase1(
-      int total, int ongkir) async {
+      int total, int ongkir, String kota, String estimasi) async {
     final token = await secureStorage.readToken();
 
     print("pay");
-    Map<String, dynamic> data = {'total': total, 'ongkir': ongkir};
+    Map<String, dynamic> data = {
+      'total': total,
+      'ongkir': ongkir,
+      'kota_tujuan' : kota,
+      'estimasi': estimasi
+    };
 
     final body = json.encode(data);
 
@@ -66,7 +71,7 @@ class PembayaranServices {
     return ResponseDefault.fromJson(jsonDecode(data.body));
   }
 
-  Future<List<OrderBuy>> getPurchasedProducts() async {
+  Future<ResponseOrderBuy> getPurchasedProducts() async {
     final token = await secureStorage.readToken();
     // print(token);
     // final uidPerson = await secureStorage.read(key: uidPerson);
@@ -80,7 +85,7 @@ class PembayaranServices {
         Uri.parse('${URLS.urlApi}/product/get-all-purchased-products'),
         headers: {'Content-type': 'application/json', 'xxx-token': token!},
         body: body);
-    return ResponseOrderBuy.fromJson(jsonDecode(response.body)).orderBuy;
+    return ResponseOrderBuy.fromJson(jsonDecode(response.body));
   }
 
   Future<List<OrderDetail>> getOrderDetails(String uidOrder) async {

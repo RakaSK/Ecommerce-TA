@@ -10,10 +10,7 @@ class UserServices {
       String username, String email, String password) async {
     final resp = await http.post(Uri.parse('${URLS.urlApi}/user/add-new-user'),
         headers: {'Accept': 'application/json'},
-        body: {
-          'username': username, 
-          'email': email, 
-          'passwordd': password});
+        body: {'username': username, 'email': email, 'passwordd': password});
 
     return ResponseDefault.fromJson(jsonDecode(resp.body));
   }

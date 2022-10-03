@@ -18,8 +18,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CheckOutPage extends StatelessWidget {
   int total = 0;
-
   int ongkir = 0;
+  String kota = "";
+  String estimasi = "";
 
   // final ResponseKeranjang keranjang;
   // const CheckOutPage({Key? key, required this.keranjang}) : super(key: key);
@@ -71,7 +72,7 @@ class CheckOutPage extends StatelessWidget {
           children: [
             const StreetAddressCheckout(),
             FutureBuilder<Keranjang1>(
-                future: keranjangServices.getKeranjang(),
+                future: keranjangServices.getKeranjangHarga(),
                 builder: (context, snapshot) {
                   if (!snapshot.hasData) {
                     return Container();
@@ -153,6 +154,8 @@ class CheckOutPage extends StatelessWidget {
                                   ],
                                 ));
                           } else if (state is SetOngkir) {
+                            kota = state.Kota;
+                            estimasi = state.Estimasi;
                             ongkir = int.parse(state.Ongkir);
                             print("SetOngkir");
                             BlocProvider.of<TotalBloc>(context).add(
@@ -308,12 +311,15 @@ class CheckOutPage extends StatelessWidget {
                             fontSize: 22,
                             width: size.width,
                             onPressed: () {
-                              // cartBloc.add( OnMakePayment(amount: '${ (productBloc.state.total * 100 ).floor() }', creditCardFrave: cartBloc.state.creditCardFrave ) );
                               BlocProvider.of<OngkirBloc>(context)
-                                  .add(deleteongkirevent());
+                                  .add(DeleteOngkirEvent());
+                              BlocProvider.of<TotalBloc>(context)
+                                  .add(DeleteTotalEvent());
                               productBloc.add(OnSaveProductsBuyToDatabaseEvent(
                                   total,
                                   ongkir,
+                                  kota,
+                                  estimasi,
                                   snapshot.data!.uidKeranjang.toString()));
                             },
                           ),

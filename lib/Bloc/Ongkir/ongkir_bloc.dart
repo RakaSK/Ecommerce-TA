@@ -9,12 +9,14 @@ part 'ongkir_state.dart';
 class OngkirBloc extends Bloc<OngkirEvent, OngkirState> {
   OngkirBloc() : super(OngkirInitial()) {
     on<PilihOngkirEvent>(_showHideMenu);
-    on<deleteongkirevent>(deleteongkir);
+    on<DeleteOngkirEvent>(deleteongkir);
   }
 
   Future<void> _showHideMenu(
       PilihOngkirEvent event, Emitter<OngkirState> emit) async {
     int total = int.parse(event.Ongkir) + int.parse(event.Order);
+    String Kota = event.Kota;
+    String Estimasi = event.Estimasi;
 
     emit(SetOngkir(
       Ongkir: event.Ongkir,
@@ -25,7 +27,7 @@ class OngkirBloc extends Bloc<OngkirEvent, OngkirState> {
   }
 
   Future<void> deleteongkir(
-      deleteongkirevent event, Emitter<OngkirState> emit) async {
+      DeleteOngkirEvent event, Emitter<OngkirState> emit) async {
     emit(OngkirInitial());
   }
 }
