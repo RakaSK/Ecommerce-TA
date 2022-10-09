@@ -66,7 +66,7 @@ class ListProductsForHome extends StatelessWidget {
                                 fontSize: 17,
                                 overflow: TextOverflow.ellipsis),
                             TextFrave(
-                                text: '\Rp ${snapshot.data![i].price}',
+                                text: '\Rp. ${snapshot.data![i].price}',
                                 fontSize: 16),
                           ],
                         ),

@@ -10,9 +10,9 @@
             <action android:name="android.media.action.IMAGE_CAPTURE" />
         </intent>
     </queries>
-   <application
+    <application
         android:name="${applicationName}"
-        android:label="Ecommerce TA"
+        android:label="Ecommerce TA User"
         android:usesCleartextTraffic="true"
         android:icon="@mipmap/ic_launcher">
         <activity
@@ -50,4 +50,5 @@
             android:name="flutterEmbedding"
             android:value="2" />
     </application>
+    <uses-permission android:name="android.permission.INTERNET"/>
 </manifest>

@@ -6,7 +6,9 @@ import 'package:e_commers/service/urls.dart';
 import 'package:e_commers/ui/Views/Profile/shopping/bukti_pembayaran_page.dart';
 import 'package:e_commers/ui/widgets/shimmer_frave.dart';
 import 'package:e_commers/ui/widgets/widgets.dart';
+import 'package:e_commers/Bloc/product/product_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class OrderDetailsPage extends StatelessWidget {
   final String uidOrder;
@@ -36,6 +38,9 @@ class _ListOrderDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final productBloc = BlocProvider.of<ProductBloc>(context);
+    final _keyForm = GlobalKey<FormState>();
+
     bool sudahbayar = false;
     if (orderDetails[0].bukti_pembayaran != "") {
       sudahbayar = true;
@@ -113,9 +118,25 @@ class _ListOrderDetails extends StatelessWidget {
             width: size.width,
             child: Column(
               children: [
-                const SizedBox(height: 18.0),
+                // const SizedBox(height: 10.0),
                 sudahbayar
                     ? Container(
+                        // child: TextButton(
+                        //     style: TextButton.styleFrom(
+                        //         shape: RoundedRectangleBorder(
+                        //             borderRadius: BorderRadius.circular(50.0))),
+                        //     child: IconButton(
+                        //         color: Colors.black,
+                        //         onPressed: () {},
+                        //         icon: const Icon(Icons.delete_sharp)),
+                        //     onPressed: () {
+                        //       if (_keyForm.currentState!.validate()) {
+                        //         productBloc.add(OnDeleteBuktiEvent(
+                        //             widget.uidOrderBuy,
+                        //             productBloc.state.pathImage!));
+                        //         Navigator.pop(context);
+                        //       }
+                        //     }),
                         child: Text("Anda Sudah Mengirim Bukti Pembayaran",
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,

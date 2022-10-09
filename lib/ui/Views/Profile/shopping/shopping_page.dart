@@ -118,8 +118,8 @@ class _DetailsProductsBuy extends StatelessWidget {
                         borderRadius: BorderRadius.circular(15.0),
                         // color: Colors.white,
                         color: (orderBuy.orderBuy[i].status == '0')
-                            ? Colors.red[100]
-                            : Colors.green[100]),
+                            ? Colors.red[200]
+                            : Colors.green[300]),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [

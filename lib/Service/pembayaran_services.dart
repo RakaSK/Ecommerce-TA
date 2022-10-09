@@ -100,6 +100,26 @@ class PembayaranServices {
     return ResponseOrderDetails.fromJson(jsonDecode(response.body))
         .orderDetails;
   }
+
+  Future<ResponseDefault> deleteBuktiBayar(
+      String uidOrder, String image) async {
+    final token = await secureStorage.readToken();
+    print(uidOrder);
+
+    var request = http.MultipartRequest('DELETE',
+        Uri.parse('${URLS.urlApi}/product/delete-bukti-bayar' + uidOrder))
+      ..headers['Accept'] = 'application/json'
+      ..headers['xxx-token'] = token!
+      ..fields['uidOrder'] = uidOrder
+      // ..fields.addEntries(MapEntry("uidOrder" : uidOrder));
+      ..files.remove(
+          await http.MultipartFile.fromPath('BuktiPembayaranImage', image));
+
+    final resp = await request.send();
+    var data = await http.Response.fromStream(resp);
+
+    return ResponseDefault.fromJson(jsonDecode(data.body));
+  }
 }
 
 final pembayaranServices = PembayaranServices();

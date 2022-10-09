@@ -106,7 +106,7 @@ class CheckOutPage extends StatelessWidget {
                                               fontWeight: FontWeight.w600),
                                           Divider(),
                                           TextFrave(
-                                              text: 'Masukkan Kota Tujuan!',
+                                              text: 'Estimasi tidak ditemukan!',
                                               fontSize: 18),
                                           // Row(
                                           //   mainAxisAlignment:

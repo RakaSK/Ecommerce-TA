@@ -82,7 +82,7 @@ class _DetailsProductPageState extends State<DetailsProductPage> {
                       children: [
                         TextFrave(
                             text: '\Stock = ${widget.product.stock.toString()}',
-                            fontSize: 18)
+                            fontSize: 20)
                       ],
                     ),
                   ),
@@ -215,7 +215,7 @@ class _DetailsProductPageState extends State<DetailsProductPage> {
                         height: 55,
                         width: size.width * .45,
                         child: TextFrave(
-                            text: '\Rp ${widget.product.price}',
+                            text: '\Rp. ${widget.product.price}',
                             fontSize: 22,
                             fontWeight: FontWeight.bold),
                       ),

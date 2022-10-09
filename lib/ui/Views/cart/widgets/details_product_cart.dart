@@ -62,7 +62,7 @@ class DetailsProductsCart extends StatelessWidget {
                                     const SizedBox(height: 10.0),
                                     TextFrave(
                                         text:
-                                            '\Rp ${state.products![i].price.toInt()}',
+                                            '\Rp. ${state.products![i].price.toInt()}',
                                         fontSize: 20,
                                         fontWeight: FontWeight.w600),
                                     const SizedBox(height: 20.0),

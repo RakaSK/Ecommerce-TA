@@ -113,7 +113,7 @@ class _CategoryProductsPageState extends State<CategoryProductsPage> {
                                               fontWeight: FontWeight.w500),
                                           TextFrave(
                                               text:
-                                                  '\Rp ${snapshot.data![i].price}',
+                                                  '\Rp. ${snapshot.data![i].price}',
                                               fontSize: 16),
                                         ],
                                       ),

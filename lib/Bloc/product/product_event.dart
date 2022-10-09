@@ -92,3 +92,10 @@ class OnDeleteKeranjangEvent extends ProductEvent {
 
   OnDeleteKeranjangEvent(this.uidKeranjangDetails);
 }
+
+class OnDeleteBuktiEvent extends ProductEvent {
+  final String uidOrder;
+  final String image;
+
+  OnDeleteBuktiEvent(this.uidOrder, this.image);
+}

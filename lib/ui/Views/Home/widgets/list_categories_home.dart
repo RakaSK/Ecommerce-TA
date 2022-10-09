@@ -12,7 +12,7 @@ class ListCategoriesHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 40,
+      height: 45,
       width: MediaQuery.of(context).size.width,
       child: FutureBuilder<List<Categories>>(
         future: categoryServices.listCategoriesHome(),
@@ -26,9 +26,9 @@ class ListCategoriesHome extends StatelessWidget {
                   itemBuilder: (context, i) => Container(
                     margin: EdgeInsets.only(right: 8.0),
                     padding: EdgeInsets.symmetric(horizontal: 10.0),
-                    width: 150,
+                    width: MediaQuery.of(context).size.width * 0.5,
                     decoration: BoxDecoration(
-                        color: Color(0xff0C6CF2).withOpacity(.1),
+                        color: Color(0xff0C6CF2).withOpacity(.2),
                         borderRadius: BorderRadius.circular(10.0)),
                     child: Center(
                         child: TextFrave(

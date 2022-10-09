@@ -237,4 +237,24 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
       emit(FailureProductState(e.toString()));
     }
   }
+
+  Future<void> _deleteBuktiBayar(
+      OnDeleteBuktiEvent event, Emitter<ProductState> emit) async {
+    try {
+      emit(LoadingProductState());
+
+      final data = await pembayaranServices.deleteBuktiBayar(
+          event.uidOrder, event.image);
+
+      await Future.delayed(Duration(seconds: 1));
+
+      if (data.resp) {
+        emit(SuccessProductState());
+      } else {
+        emit(FailureProductState(data.message));
+      }
+    } catch (e) {
+      emit(FailureProductState(e.toString()));
+    }
+  }
 }

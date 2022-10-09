@@ -61,18 +61,18 @@ class _ListCategories extends StatelessWidget {
   Widget build(BuildContext context) {
     return GridView.builder(
       physics: BouncingScrollPhysics(),
-      padding: EdgeInsets.all(10.0),
+      padding: EdgeInsets.all(15.0),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
-          crossAxisSpacing: 15,
-          mainAxisSpacing: 15,
-          mainAxisExtent: 180),
+          crossAxisSpacing: 20,
+          mainAxisSpacing: 20,
+          mainAxisExtent: 150),
       itemCount: categories.length,
       itemBuilder: (context, i) => GestureDetector(
           child: Container(
             padding: EdgeInsets.all(15.0),
             decoration: BoxDecoration(
-                color: ColorsFrave.primaryColorFrave.withOpacity(.2),
+                color: ColorsFrave.primaryColorFrave.withOpacity(.4),
                 borderRadius: BorderRadius.circular(10.0)),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -85,7 +85,9 @@ class _ListCategories extends StatelessWidget {
                 const SizedBox(height: 10.0),
                 TextFrave(
                     text: categories[i].category,
-                    fontSize: 20,
+                    fontSize: 22,
+                    fontWeight: FontWeight.w500,
+                    textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis)
               ],
             ),

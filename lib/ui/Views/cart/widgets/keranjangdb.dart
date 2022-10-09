@@ -75,6 +75,7 @@ class _DetailsKeranjang extends StatelessWidget {
                                       text: keranjang.keranjang[i].nameProduct
                                           .toString(),
                                       fontSize: 19,
+                                      fontWeight: FontWeight.w500,
                                       overflow: TextOverflow.ellipsis)),
                               GestureDetector(
                                   onTap: () {
@@ -106,9 +107,9 @@ class _DetailsKeranjang extends StatelessWidget {
                                   const SizedBox(height: 10.0),
                                   TextFrave(
                                       text:
-                                          '\Rp ${keranjang.keranjang[i].price}',
+                                          '\Rp. ${keranjang.keranjang[i].price}',
                                       fontSize: 20,
-                                      fontWeight: FontWeight.w600),
+                                      fontWeight: FontWeight.w500),
                                   const SizedBox(height: 20.0),
                                   SizedBox(
                                     width:
@@ -229,21 +230,20 @@ class _DetailsKeranjang extends StatelessWidget {
                     children: [
                       Padding(
                         padding:
-                            EdgeInsets.only(left: 15.0, right: 15.0, top: 10.0),
+                            EdgeInsets.only(left: 20.0, right: 20.0, top: 10.0),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             const TextFrave(
                                 text: 'Total',
                                 fontSize: 23,
-                                fontWeight: FontWeight.w500),
+                                fontWeight: FontWeight.w600),
                             TextFrave(
                                 text:
                                     '\Rp. ${keranjang.amount.toStringAsFixed(0)}',
                                 // text: '\Rp ${keranjang[i].amount}',
                                 fontSize: 24,
-                                fontWeight: FontWeight.bold,
-                                color: Color(0xff0C6CF2)),
+                                fontWeight: FontWeight.w600),
                           ],
                         ),
                       ),
@@ -251,7 +251,8 @@ class _DetailsKeranjang extends StatelessWidget {
                       BtnFrave(
                         text: 'Checkout',
                         fontSize: 22,
-                        width: double.infinity,
+                        // width: MediaQuery.of(context).size.width * 0.9,
+                        width: 335,
                         height: 56,
                         border: 15,
                         onPressed: () {
