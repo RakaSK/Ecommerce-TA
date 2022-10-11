@@ -50,10 +50,11 @@ class OnSaveProductsBuyToDatabaseEvent extends ProductEvent {
   final int ongkir;
   final String kota;
   final String estimasi;
+  final String namakurir;
   final String uidKeranjang;
 
-  OnSaveProductsBuyToDatabaseEvent(
-      this.total, this.ongkir, this.kota, this.estimasi, this.uidKeranjang);
+  OnSaveProductsBuyToDatabaseEvent(this.total, this.ongkir, this.kota,
+      this.estimasi, this.namakurir, this.uidKeranjang);
 }
 
 class OnSelectPathImageProductEvent extends ProductEvent {
@@ -98,4 +99,17 @@ class OnDeleteBuktiEvent extends ProductEvent {
   final String image;
 
   OnDeleteBuktiEvent(this.uidOrder, this.image);
+}
+
+class OnDeleteProductEvent extends ProductEvent {
+  final String uidProduct;
+
+  OnDeleteProductEvent(this.uidProduct);
+}
+
+class OnUpdateStatusPembayaranEvent extends ProductEvent {
+  final String uidOrderBuy;
+  final String status;
+
+  OnUpdateStatusPembayaranEvent(this.uidOrderBuy, this.status);
 }

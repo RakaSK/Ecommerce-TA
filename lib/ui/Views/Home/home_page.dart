@@ -113,7 +113,7 @@ class _ListHomeState extends State<ListHome> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const TextFrave(text: 'Categories', fontSize: 18, fontWeight: FontWeight.w600,),
+              const TextFrave(text: 'Kategori', fontSize: 18, fontWeight: FontWeight.w600,),
               GestureDetector(
                 onTap: () => Navigator.of(context).push(routeSlide(page: CategoriesPage())),
                 child: Row(
@@ -134,14 +134,14 @@ class _ListHomeState extends State<ListHome> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const TextFrave(text: 'Popular Products', fontSize: 18, fontWeight: FontWeight.w600,),
-              Row(
-                children: const [
-                  TextFrave(text: 'See All', fontSize: 17 ),
-                  SizedBox(width: 5.0),
-                  Icon(Icons.arrow_forward_ios_rounded, size: 18, color: Color(0xff006CF2))
-                ],
-              ),
+              const TextFrave(text: 'Populer Products', fontSize: 18, fontWeight: FontWeight.w600,),
+              // Row(
+              //   children: const [
+              //     TextFrave(text: 'See All', fontSize: 17 ),
+              //     SizedBox(width: 5.0),
+              //     Icon(Icons.arrow_forward_ios_rounded, size: 18, color: Color(0xff006CF2))
+              //   ],
+              // ),
             ],
           ),
 

@@ -62,4 +62,24 @@ class AccessPermission {
         break;
     }
   }
+
+  Future<void> permissionAccessGalleryOrCameraForCategory(
+      PermissionStatus status, BuildContext context, ImageSource source) async {
+    switch (status) {
+      case PermissionStatus.granted:
+        final XFile? imagePath = await _picker.pickImage(source: source);
+        if (imagePath != null) {
+          BlocProvider.of<CategoryBloc>(context)
+              .add(OnSelectPathImageCategoryEvent(imagePath.path));
+        }
+        break;
+      case PermissionStatus.denied:
+      case PermissionStatus.restricted:
+      case PermissionStatus.limited:
+        break;
+      case PermissionStatus.permanentlyDenied:
+        openAppSettings();
+        break;
+    }
+  }
 }

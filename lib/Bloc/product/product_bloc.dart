@@ -27,6 +27,9 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     on<OnSelectPathImageBuktiProductEvent>(_selectImageForBuktiPembayaran);
     on<OnSaveNewProductEvent>(_addNewProduct);
     on<OnDeleteKeranjangEvent>(_deleteKeranjang);
+    on<OnDeleteBuktiEvent>(_deleteBuktiBayar);
+    on<OnDeleteProductEvent>(_deleteProduct);
+    on<OnUpdateStatusPembayaranEvent>(_onUpdateStatusPembayaran);
   }
 
   Future<void> _addOrDeleteProductFavorite(
@@ -154,7 +157,11 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
       emit(LoadingProductState());
 
       final data = await pembayaranServices.saveOrderBuyProductToDatabase1(
-          event.total, event.ongkir, event.kota, event.estimasi);
+          event.total,
+          event.ongkir,
+          event.kota,
+          event.estimasi,
+          event.namakurir);
 
       if (data.resp) {
         emit(SuccessProductState());
@@ -253,6 +260,44 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
       } else {
         emit(FailureProductState(data.message));
       }
+    } catch (e) {
+      emit(FailureProductState(e.toString()));
+    }
+  }
+
+  Future<void> _deleteProduct(
+      OnDeleteProductEvent event, Emitter<ProductState> emit) async {
+    try {
+      emit(LoadingProductState());
+
+      final data = await productServices.deleteProduct(event.uidProduct);
+
+      await Future.delayed(Duration(seconds: 1));
+
+      if (data.resp) {
+        emit(SuccessProductState());
+      } else {
+        emit(FailureProductState(data.message));
+      }
+    } catch (e) {
+      emit(FailureProductState(e.toString()));
+    }
+  }
+
+  Future<void> _onUpdateStatusPembayaran(
+      OnUpdateStatusPembayaranEvent event, Emitter<ProductState> emit) async {
+    try {
+      emit(LoadingProductState());
+
+      final data = await productServices.updateStatusPembayaran(
+          event.uidOrderBuy, event.status);
+
+      await Future.delayed(Duration(milliseconds: 1000));
+
+      if (data.resp)
+        emit(SuccessProductState());
+      else
+        emit(FailureProductState(data.message));
     } catch (e) {
       emit(FailureProductState(e.toString()));
     }

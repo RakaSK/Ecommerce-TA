@@ -11,6 +11,14 @@ class SecureStorageFrave {
     return await secureStorage.read(key: 'token');
   }
 
+  Future<void> persistenRole(String role) async {
+    await secureStorage.write(key: 'role', value: role);
+  }
+
+  Future<String?> readRole() async {
+    return await secureStorage.read(key: 'role');
+  }
+
   Future<void> deleteSecureStorage() async {
     await secureStorage.delete(key: 'token');
     await secureStorage.deleteAll();

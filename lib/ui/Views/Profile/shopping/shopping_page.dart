@@ -110,7 +110,7 @@ class _DetailsProductsBuy extends StatelessWidget {
                                   .toString()))),
                   child: Container(
                     // height: 180,
-                    height: mediaQuery.size.height * 0.56,
+                    height: mediaQuery.size.height * 0.57,
                     padding:
                         EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
                     margin: EdgeInsets.only(bottom: 15.0),
@@ -238,6 +238,21 @@ class _DetailsProductsBuy extends StatelessWidget {
                                 fontWeight: FontWeight.w500),
                             TextFrave(
                               text: '${orderBuy.orderBuy[i].estimasi} \Days',
+                              fontSize: 18,
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 14.0),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const TextFrave(
+                                text: 'Nama Kurir',
+                                fontSize: 18,
+                                color: Colors.black,
+                                fontWeight: FontWeight.w500),
+                            TextFrave(
+                              text: '${orderBuy.orderBuy[i].namakurir}',
                               fontSize: 18,
                             ),
                           ],

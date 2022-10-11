@@ -28,6 +28,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
         await secureStorage.persistenToken(data.token);
 
+        await secureStorage.persistenRole(data.role);
+
         emit(SuccessAuthState());
       } else {
         emit(FailureAuthState(error: data.message));

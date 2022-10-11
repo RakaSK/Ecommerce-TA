@@ -12,6 +12,7 @@ class DetailPage extends StatefulWidget {
   final String? kota_tujuan;
   final String? berat;
   final String? kurir;
+  final String? namakurir;
   final String? order;
   final String? nama_kota_tujuan;
 
@@ -20,6 +21,7 @@ class DetailPage extends StatefulWidget {
       this.kota_tujuan,
       this.berat,
       this.kurir,
+      this.namakurir,
       this.order,
       this.nama_kota_tujuan});
 
@@ -88,9 +90,11 @@ class _DetailPageState extends State<DetailPage> {
                   Ongkir: _data[index]['cost'][0]['value'].toString(),
                   Order: "0",
                   Estimasi: _data[index]['cost'][0]['etd'].toString(),
+                  NamaKurir: widget.namakurir!.toString(),
                   Kota: widget.nama_kota_tujuan!.toString()));
               Navigator.push(context, routeSlide(page: CheckOutPage()));
               print(widget.nama_kota_tujuan);
+              print(widget.namakurir!.toString());
             },
             title: Text("${_data[index]['service']}"),
             subtitle: Text("${_data[index]['description']}"),

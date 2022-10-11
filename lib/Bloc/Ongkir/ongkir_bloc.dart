@@ -17,12 +17,15 @@ class OngkirBloc extends Bloc<OngkirEvent, OngkirState> {
     int total = int.parse(event.Ongkir) + int.parse(event.Order);
     String Kota = event.Kota;
     String Estimasi = event.Estimasi;
+    String NamaKurir = event.NamaKurir;
+
 
     emit(SetOngkir(
       Ongkir: event.Ongkir,
       Total: total.toString(),
       Estimasi: event.Estimasi,
       Kota: event.Kota,
+      NamaKurir: event.NamaKurir
     ));
   }
 

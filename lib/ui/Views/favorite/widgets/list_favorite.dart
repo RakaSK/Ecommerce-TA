@@ -53,12 +53,10 @@ class ProductFavorite extends StatelessWidget {
                 TextFrave(
                     text: product.nameProduct,
                     fontSize: 17,
+                    fontWeight: FontWeight.w500,
                     overflow: TextOverflow.ellipsis),
                 const SizedBox(height: 10.0),
-                TextFrave(
-                    text: '\Rp ${product.price}',
-                    fontSize: 21,
-                    fontWeight: FontWeight.bold),
+                TextFrave(text: '\Rp. ${product.price}', fontSize: 16),
               ],
             ),
             Positioned(

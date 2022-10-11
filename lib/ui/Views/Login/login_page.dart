@@ -1,6 +1,8 @@
 import 'package:e_commers/Bloc/auth/auth_bloc.dart';
 import 'package:e_commers/Bloc/user/user_bloc.dart';
+import 'package:e_commers/Helpers/secure_storage_frave.dart';
 import 'package:e_commers/Helpers/validation_form.dart';
+import 'package:e_commers/ui/Views/Admin/admin_page.dart';
 import 'package:e_commers/ui/Views/Home/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:e_commers/Helpers/helpers.dart';
@@ -42,7 +44,7 @@ class _SignInPageState extends State<SignInPage> {
     final authBloc = BlocProvider.of<AuthBloc>(context);
 
     return BlocListener<AuthBloc, AuthState>(
-      listener: (context, state) {
+      listener: (context, state) async {
         if (state is LoadingAuthState) {
           modalLoading(context, 'Checking...');
         } else if (state is FailureAuthState) {
@@ -51,8 +53,14 @@ class _SignInPageState extends State<SignInPage> {
         } else if (state is SuccessAuthState) {
           Navigator.pop(context);
           userBloc.add(OnGetUserEvent());
+          final role = await secureStorage.readRole();
+          if (role == 'user') {
           Navigator.pushAndRemoveUntil(
               context, routeSlide(page: HomePage()), (_) => false);
+          } else {
+            Navigator.pushAndRemoveUntil(
+              context, routeSlide(page: AdminPage()), (_) => false);
+          }
         }
       },
       child: Scaffold(

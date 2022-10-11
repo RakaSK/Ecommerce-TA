@@ -46,72 +46,78 @@ class _ListOrderDetails extends StatelessWidget {
       sudahbayar = true;
     }
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+    return Stack(
       children: [
-        Container(
-            margin: const EdgeInsets.only(
-              left: 5.0,
-              top: 5.0,
-            ),
-            child: IconButton(
-                splashRadius: 20,
-                onPressed: () => Navigator.pop(context),
-                icon: Icon(Icons.arrow_back_ios_new_rounded))),
-        Expanded(
-          child: ListView.builder(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
-            itemCount: orderDetails.length,
-            itemBuilder: (context, i) => Padding(
-              padding: const EdgeInsets.only(bottom: 20.0),
-              child: Container(
-                padding: const EdgeInsets.all(10.0),
-                height: 150,
-                width: MediaQuery.of(context).size.width,
-                decoration: BoxDecoration(
-                    color: Colors.grey[200],
-                    borderRadius: BorderRadius.circular(12.0)),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Flexible(
-                        child: TextFrave(
-                            text: orderDetails[i].nameProduct.toUpperCase(),
-                            fontSize: 19,
-                            overflow: TextOverflow.ellipsis,
-                            fontWeight: FontWeight.w500)),
-                    const SizedBox(height: 15.0),
-                    Row(
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+                margin: const EdgeInsets.only(
+                  left: 5.0,
+                  top: 5.0,
+                ),
+                child: IconButton(
+                    splashRadius: 20,
+                    onPressed: () => Navigator.pop(context),
+                    icon: Icon(Icons.arrow_back_ios_new_rounded))),
+            Expanded(
+              child: ListView.builder(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 10.0, vertical: 10.0),
+                itemCount: orderDetails.length,
+                itemBuilder: (context, i) => Padding(
+                  padding: const EdgeInsets.only(bottom: 20.0),
+                  child: Container(
+                    padding: const EdgeInsets.all(10.0),
+                    height: 150,
+                    width: MediaQuery.of(context).size.width,
+                    decoration: BoxDecoration(
+                        color: Colors.grey[200],
+                        borderRadius: BorderRadius.circular(12.0)),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(
-                            height: 90,
-                            width: 90,
-                            child: Image.network(
-                                URLS.baseUrl + orderDetails[i].picture)),
-                        const SizedBox(width: 10.0),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                        Flexible(
+                            child: TextFrave(
+                                text: orderDetails[i].nameProduct.toUpperCase(),
+                                fontSize: 19,
+                                overflow: TextOverflow.ellipsis,
+                                fontWeight: FontWeight.w500)),
+                        const SizedBox(height: 15.0),
+                        Row(
                           children: [
-                            TextFrave(
-                              text: 'Harga = \Rp ${orderDetails[i].price}',
-                              fontSize: 20,
-                            ),
-                            const SizedBox(height: 5.0),
-                            TextFrave(
-                                text: 'Jumlah = ${orderDetails[i].quantity}',
-                                fontSize: 20),
+                            SizedBox(
+                                height: 90,
+                                width: 90,
+                                child: Image.network(
+                                    URLS.baseUrl + orderDetails[i].picture)),
+                            const SizedBox(width: 10.0),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                TextFrave(
+                                  text: 'Harga = \Rp ${orderDetails[i].price}',
+                                  fontSize: 20,
+                                ),
+                                const SizedBox(height: 5.0),
+                                TextFrave(
+                                    text:
+                                        'Jumlah = ${orderDetails[i].quantity}',
+                                    fontSize: 20),
+                              ],
+                            )
                           ],
-                        )
+                        ),
                       ],
                     ),
-                  ],
+                  ),
                 ),
               ),
             ),
-          ),
+          ],
         ),
-        Positioned(
+        Align(
+          alignment: Alignment.bottomCenter,
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: 50.0, vertical: 10.0),
             height: 120,
@@ -121,27 +127,36 @@ class _ListOrderDetails extends StatelessWidget {
                 // const SizedBox(height: 10.0),
                 sudahbayar
                     ? Container(
-                        // child: TextButton(
-                        //     style: TextButton.styleFrom(
-                        //         shape: RoundedRectangleBorder(
-                        //             borderRadius: BorderRadius.circular(50.0))),
-                        //     child: IconButton(
-                        //         color: Colors.black,
-                        //         onPressed: () {},
-                        //         icon: const Icon(Icons.delete_sharp)),
-                        //     onPressed: () {
-                        //       if (_keyForm.currentState!.validate()) {
-                        //         productBloc.add(OnDeleteBuktiEvent(
-                        //             widget.uidOrderBuy,
-                        //             productBloc.state.pathImage!));
-                        //         Navigator.pop(context);
-                        //       }
-                        //     }),
-                        child: Text("Anda Sudah Mengirim Bukti Pembayaran",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 15,
-                                fontFamily: 'Roboto')))
+                        child: Column(
+                        children: [
+                          Text(orderDetails[0].bukti_pembayaran,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 15,
+                                  fontFamily: 'Roboto')),
+                          GestureDetector(
+                              onTap: () {
+                                pembayaranServices
+                                    .deleteBukti(
+                                        orderDetails[0].uidOrderBuy.toString())
+                                    .then((value) {
+                                  modalSuccess(
+                                      context, 'Bukti berhasil di hapus',
+                                      onPressed: () {
+                                    Navigator.pushAndRemoveUntil(
+                                        context,
+                                        routeSlide(
+                                            page: OrderDetailsPage(
+                                                uidOrder: orderDetails[0]
+                                                    .uidOrderBuy
+                                                    .toString())),
+                                        (_) => false);
+                                  });
+                                });
+                              },
+                              child: Icon(Icons.delete_sharp)),
+                        ],
+                      ))
                     : BtnFrave(
                         text: 'Bukti Pembayaran',
                         fontSize: 20,

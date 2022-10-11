@@ -7,12 +7,14 @@ class PilihOngkirEvent extends OngkirEvent {
   final String Ongkir;
   final String Order;
   final String Estimasi;
+  final String NamaKurir;
   final String Kota;
 
   PilihOngkirEvent(
       {required this.Ongkir,
       required this.Order,
       required this.Estimasi,
+      required this.NamaKurir,
       required this.Kota});
 }
 

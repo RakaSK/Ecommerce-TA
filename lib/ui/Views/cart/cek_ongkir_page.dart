@@ -25,26 +25,30 @@ import 'package:http/http.dart' as http;
 //   }
 // }
 
-class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+class CekOngkir extends StatefulWidget {
+  final String jumlahquantity;
+  final int beratproduk = 500;
+  const CekOngkir({Key? key, required this.jumlahquantity}) : super(key: key);
 
   @override
-  State<Home> createState() => _HomeState();
+  State<CekOngkir> createState() => _CekOngkirState();
 }
 
-class _HomeState extends State<Home> {
+class _CekOngkirState extends State<CekOngkir> {
   var key = '10cb836f3ab0ef52cad5298b57367723';
   String? kota_asal = "445";
   var kota_tujuan;
-  String? berat = "500";
+  // String? berat = widget.jumlahquantity.toString();
+  var beratproduk = 500;
   var kurir;
+  var namakurir;
   var nama_kota_tujuan;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Cek Ongkir"),
+        title: Text("Cek Ongkir Kamu"),
       ),
       body: Container(
         padding: EdgeInsets.all(20),
@@ -90,13 +94,32 @@ class _HomeState extends State<Home> {
             //     return dataKota;
             //   },
             // ),
-            Text("Kota Asal = Solo"),
-            SizedBox(height: 20),
+
+            Container(
+              // margin: const EdgeInsets.all(30.0),
+              // padding: const EdgeInsets.all(50.0),
+              width: 360,
+              height: 60,
+              decoration: BoxDecoration(
+                border: Border.all(color: Color.fromARGB(255, 120, 120, 120)),
+                borderRadius: BorderRadius.all(Radius.circular(4.2)),
+              ),
+              child: Text('Kota Surakarta (Solo)',
+                  style: TextStyle(
+                    fontSize: 15,
+                    height: 2.7,
+                  ),
+                  textWidthBasis: TextWidthBasis.parent),
+            ),
+            // Text("Kota Asal = Solo"),
+            SizedBox(height: 30),
             DropdownSearch<Kota>(
               //kamu bisa merubah tampilan field sesuai keinginan
               dropdownSearchDecoration: InputDecoration(
                 labelText: "Kota Tujuan",
                 hintText: "Pilih Kota Tujuan",
+                // helperText: "Pilih Kota Tujuan",
+                border: OutlineInputBorder(),
               ),
 
               //tersedia mode menu dan mode dialog
@@ -145,7 +168,25 @@ class _HomeState extends State<Home> {
             //     berat = text;
             //   },
             // ),
-            Text("Berat Paket (gram) = $berat"),
+            Container(
+              // margin: const EdgeInsets.all(30.0),
+              // padding: const EdgeInsets.all(50.0),
+              width: 360,
+              height: 60,
+              decoration: BoxDecoration(
+                border: Border.all(color: Color.fromARGB(255, 120, 120, 120)),
+                borderRadius: BorderRadius.all(Radius.circular(4.2)),
+              ),
+              child: Text(
+                  "Berat Paket (gr) = ${(widget.jumlahquantity)} pcs * 500 gr =  ${int.parse(widget.jumlahquantity) * 500} gr",
+                  style: TextStyle(
+                    fontSize: 15,
+                    height: 2.7,
+                  ),
+                  textWidthBasis: TextWidthBasis.parent),
+            ),
+            // Text(
+            //     "Berat Paket (gr) = ${(widget.jumlahquantity)} pcs * 500 gr =  ${int.parse(widget.jumlahquantity) * 500} gr"),
             SizedBox(height: 30),
             DropdownSearch<String>(
                 mode: Mode.MENU,
@@ -155,20 +196,24 @@ class _HomeState extends State<Home> {
                 dropdownSearchDecoration: InputDecoration(
                   labelText: "Kurir",
                   hintText: "Kurir",
+                  // helperText: "Pilih Kurir",
+                  border: OutlineInputBorder(),
                 ),
                 popupItemDisabled: (String s) => s.startsWith('I'),
                 onChanged: (text) {
                   kurir = text;
+                  namakurir = text?.toUpperCase();
                 }),
             SizedBox(
-              height: 20,
+              height: 30,
             ),
             ElevatedButton(
+              style: ElevatedButton.styleFrom(fixedSize: const Size(360, 45)),
               onPressed: () {
                 //validasi
                 if (kota_asal == '' ||
                     kota_tujuan == '' ||
-                    berat == '' ||
+                    // berat == '' ||
                     kurir == '') {
                   final snackBar =
                       SnackBar(content: Text("Isi bidang yang masih kosong!"));
@@ -182,8 +227,10 @@ class _HomeState extends State<Home> {
                         builder: (context) => DetailPage(
                               kota_asal: kota_asal,
                               kota_tujuan: kota_tujuan,
-                              berat: berat,
+                              berat: (int.parse(widget.jumlahquantity) * 500)
+                                  .toString(),
                               kurir: kurir,
+                              namakurir: namakurir,
                               nama_kota_tujuan: nama_kota_tujuan,
                             )),
                   );

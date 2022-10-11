@@ -26,7 +26,7 @@ class CategoriesPage extends StatelessWidget {
         ),
         elevation: 0,
         title: const TextFrave(
-            text: 'Categories',
+            text: 'Kategori',
             color: Colors.black87,
             fontWeight: FontWeight.w500,
             fontSize: 20),

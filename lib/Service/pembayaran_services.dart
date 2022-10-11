@@ -29,16 +29,17 @@ class PembayaranServices {
     return ResponseDefault.fromJson(jsonDecode(resp.body));
   }
 
-  Future<ResponseDefault> saveOrderBuyProductToDatabase1(
-      int total, int ongkir, String kota, String estimasi) async {
+  Future<ResponseDefault> saveOrderBuyProductToDatabase1(int total, int ongkir,
+      String kota, String estimasi, String namakurir) async {
     final token = await secureStorage.readToken();
 
     print("pay");
     Map<String, dynamic> data = {
       'total': total,
       'ongkir': ongkir,
-      'kota_tujuan' : kota,
-      'estimasi': estimasi
+      'kota_tujuan': kota,
+      'estimasi': estimasi,
+      'namakurir': namakurir,
     };
 
     final body = json.encode(data);
@@ -119,6 +120,34 @@ class PembayaranServices {
     var data = await http.Response.fromStream(resp);
 
     return ResponseDefault.fromJson(jsonDecode(data.body));
+  }
+
+  Future<ResponseDefault> deleteBukti(String uidOrder) async {
+    // print(token);
+    // final uidPerson = await secureStorage.read(key: uidPerson);
+
+    Map<String, dynamic> data = {
+      'uidOrder': uidOrder,
+    };
+
+    final body = json.encode(data);
+    final response = await http.post(
+        Uri.parse('${URLS.urlApi}/product/delete-bukti'),
+        headers: {'Content-type': 'application/json'},
+        body: body);
+    return ResponseDefault.fromJson(jsonDecode(response.body));
+  }
+
+  Future<List<OrderBuy>> getPurchasedProductsAdmin() async {
+    final token = await secureStorage.readToken();
+
+    final response = await http.get(
+      Uri.parse('${URLS.urlApi}/product/get-all-purchased-products-admin'),
+      headers: {'Content-type': 'application/json', 'xxx-token': token!},
+    );
+
+    print(response.body);
+    return ResponseOrderBuy.fromJson(jsonDecode(response.body)).orderBuy;
   }
 }
 

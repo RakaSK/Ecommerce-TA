@@ -28,3 +28,7 @@ part 'modal_loading_short.dart';
 part 'modal_categories.dart';
 part 'modal_infobank.dart';
 part 'modal_checkout.dart';
+
+part 'modal_delete_product.dart';
+part 'modal_delete_category.dart';
+part 'modalStatusBayar.dart';

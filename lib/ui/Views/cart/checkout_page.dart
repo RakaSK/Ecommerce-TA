@@ -21,6 +21,7 @@ class CheckOutPage extends StatelessWidget {
   int ongkir = 0;
   String kota = "";
   String estimasi = "";
+  String namakurir = "";
 
   // final ResponseKeranjang keranjang;
   // const CheckOutPage({Key? key, required this.keranjang}) : super(key: key);
@@ -86,11 +87,16 @@ class CheckOutPage extends StatelessWidget {
                                 margin: const EdgeInsets.only(top: 10),
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 5.0, vertical: 10.0),
-                                height: 280,
+                                height: 360,
+                                // height: MediaQuery.of(context).size.height * .5,
                                 color: Colors.white,
                                 child: Column(
                                   children: [
-                                    OpsiPengiriman(),
+                                    OpsiPengiriman(
+                                      jumlahquantity: snapshot
+                                          .data!.jumlahquantity
+                                          .toString(),
+                                    ),
                                     Container(
                                       // margin: const EdgeInsets.only(top: 10.0),
                                       padding: const EdgeInsets.all(15.0),
@@ -126,6 +132,25 @@ class CheckOutPage extends StatelessWidget {
                                       ),
                                     ),
                                     Container(
+                                      padding: const EdgeInsets.all(15.0),
+                                      height: 90,
+                                      color: Colors.white,
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          TextFrave(
+                                              text: 'Nama Kurir',
+                                              fontSize: 19,
+                                              fontWeight: FontWeight.w600),
+                                          Divider(),
+                                          TextFrave(
+                                              text: 'Kurir tidak ditemukan!',
+                                              fontSize: 18)
+                                        ],
+                                      ),
+                                    ),
+                                    Container(
                                       padding: const EdgeInsets.all(17.0),
                                       // height: 100,
                                       color: Colors.white,
@@ -156,8 +181,9 @@ class CheckOutPage extends StatelessWidget {
                           } else if (state is SetOngkir) {
                             kota = state.Kota;
                             estimasi = state.Estimasi;
+                            namakurir = state.NamaKurir;
                             ongkir = int.parse(state.Ongkir);
-                            print("SetOngkir");
+                            print(snapshot.data!.jumlahquantity.toString());
                             BlocProvider.of<TotalBloc>(context).add(
                                 PilihTotalEvent(
                                     Total: snapshot.data!.amount.toString(),
@@ -166,11 +192,15 @@ class CheckOutPage extends StatelessWidget {
                               margin: const EdgeInsets.only(top: 10),
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 5.0, vertical: 10.0),
-                              height: 280,
+                              height: 370,
+                              // height: MediaQuery.of(context).size.height * .5,
                               color: Colors.white,
                               child: Column(
                                 children: [
                                   OpsiPengiriman(
+                                    jumlahquantity: snapshot
+                                        .data!.jumlahquantity
+                                        .toString(),
                                     Kota: state.Kota,
                                   ),
                                   Container(
@@ -204,6 +234,25 @@ class CheckOutPage extends StatelessWidget {
                                         //     )
                                         //   ],
                                         // ),
+                                      ],
+                                    ),
+                                  ),
+                                  Container(
+                                    padding: const EdgeInsets.all(15.0),
+                                    height: 90,
+                                    color: Colors.white,
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        TextFrave(
+                                            text: 'Nama Kurir',
+                                            fontSize: 19,
+                                            fontWeight: FontWeight.w600),
+                                        Divider(),
+                                        TextFrave(
+                                            text: '${state.NamaKurir}',
+                                            fontSize: 18)
                                       ],
                                     ),
                                   ),
@@ -320,6 +369,7 @@ class CheckOutPage extends StatelessWidget {
                                   ongkir,
                                   kota,
                                   estimasi,
+                                  namakurir,
                                   snapshot.data!.uidKeranjang.toString()));
                             },
                           ),

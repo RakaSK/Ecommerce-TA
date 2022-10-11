@@ -79,6 +79,28 @@ class ProductServices {
 
     return ResponseDefault.fromJson(jsonDecode(data.body));
   }
+
+  Future<ResponseDefault> deleteProduct(String uidProduct) async {
+    final token = await secureStorage.readToken();
+
+    final response = await http.delete(
+      Uri.parse('${URLS.urlApi}/product/delete-product/' + uidProduct),
+      headers: {'Content-type': 'application/json', 'xxx-token': token!},
+    );
+    return ResponseDefault.fromJson(jsonDecode(response.body));
+  }
+
+  Future<ResponseDefault> updateStatusPembayaran(
+      String uidOrderBuy, String status) async {
+    final token = await secureStorage.readToken();
+
+    final response = await http.put(
+        Uri.parse('${URLS.urlApi}/update-status-pembayaran'),
+        headers: {'Accept': 'application/json', 'xxx-token': token!},
+        body: {'uidOrderBuy': uidOrderBuy, 'status': status});
+
+    return ResponseDefault.fromJson(jsonDecode(response.body));
+  }
 }
 
 final productServices = ProductServices();

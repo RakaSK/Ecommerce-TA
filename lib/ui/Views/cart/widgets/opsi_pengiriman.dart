@@ -1,6 +1,6 @@
 import 'package:e_commers/Bloc/cart/cart_bloc.dart';
 import 'package:e_commers/Helpers/helpers.dart';
-import 'package:e_commers/ui/Views/cart/payment_card_page.dart';
+import 'package:e_commers/ui/Views/cart/cek_ongkir_page.dart';
 import 'package:e_commers/ui/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,7 +8,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 class OpsiPengiriman extends StatelessWidget {
   final String Kota;
-  OpsiPengiriman({Key? key, this.Kota = 'Masukkan Kota Tujuan!'})
+  final String? jumlahquantity;
+  OpsiPengiriman(
+      {Key? key,
+      this.Kota = 'Masukkan Kota Tujuan!',
+      required this.jumlahquantity})
       : super(key: key);
 
   @override
@@ -39,8 +43,12 @@ class OpsiPengiriman extends StatelessWidget {
                                 text: 'Ubah',
                                 color: Colors.blue,
                                 fontSize: 18)),
-                    onTap: () =>
-                        Navigator.push(context, routeSlide(page: Home())))
+                    onTap: () => Navigator.push(
+                        context,
+                        routeSlide(
+                            page: CekOngkir(
+                          jumlahquantity: jumlahquantity.toString(),
+                        ))))
               ],
             ),
             Divider(),
