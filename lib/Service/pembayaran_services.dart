@@ -29,8 +29,13 @@ class PembayaranServices {
     return ResponseDefault.fromJson(jsonDecode(resp.body));
   }
 
-  Future<ResponseDefault> saveOrderBuyProductToDatabase1(int total, int ongkir,
-      String kota, String estimasi, String namakurir) async {
+  Future<ResponseDefault> saveOrderBuyProductToDatabase1(
+      int total,
+      int ongkir,
+      String kota,
+      String estimasi,
+      String layanankirim,
+      String namakurir) async {
     final token = await secureStorage.readToken();
 
     print("pay");
@@ -39,6 +44,7 @@ class PembayaranServices {
       'ongkir': ongkir,
       'kota_tujuan': kota,
       'estimasi': estimasi,
+      'layanankirim': layanankirim,
       'namakurir': namakurir,
     };
 
@@ -138,7 +144,7 @@ class PembayaranServices {
     return ResponseDefault.fromJson(jsonDecode(response.body));
   }
 
-  Future<List<OrderBuy>> getPurchasedProductsAdmin() async {
+  Future<ResponseOrderBuy> getPurchasedProductsAdmin() async {
     final token = await secureStorage.readToken();
 
     final response = await http.get(
@@ -147,7 +153,7 @@ class PembayaranServices {
     );
 
     print(response.body);
-    return ResponseOrderBuy.fromJson(jsonDecode(response.body)).orderBuy;
+    return ResponseOrderBuy.fromJson(jsonDecode(response.body));
   }
 }
 

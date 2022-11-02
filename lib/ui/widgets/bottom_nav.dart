@@ -10,14 +10,14 @@ class BottomNavigationFrave extends StatelessWidget {
     return BlocBuilder<GeneralBloc, GeneralState>(
       buildWhen: (previous, current) => previous != current,
       builder: (context, state) => AnimatedOpacity(
-        duration: Duration(milliseconds: 500),
+        duration: Duration(milliseconds: 350),
         opacity: (state.showMenuHome) ? 1 : 0,
         child: Container(
           height: 70,
-          width: 380,
+          width: 395,
           decoration: BoxDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.circular(15.0),
+              borderRadius: BorderRadius.circular(17.0),
               boxShadow: [
                 BoxShadow(
                     color: Colors.black38, blurRadius: 30, spreadRadius: -5)
@@ -139,9 +139,8 @@ class _ItemButtom extends StatelessWidget {
       child: Container(
           child: SvgPicture.asset(iconString,
               height: 25,
-              color: (i == index)
-                  ? ColorsFrave.primaryColorFrave
-                  : Colors.black87)),
+              color:
+                  (i == index) ? ColorsFrave.primaryColorFrave : Colors.black)),
     );
   }
 }

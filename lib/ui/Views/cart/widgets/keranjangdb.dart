@@ -60,7 +60,8 @@ class _DetailsKeranjang extends StatelessWidget {
                     return Container(
                       margin: const EdgeInsets.only(bottom: 20.0),
                       padding: const EdgeInsets.all(15.0),
-                      height: 150,
+                      height: MediaQuery.of(context).size.height * 0.232,
+                      // height: 170,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20.0),
                           color: Color(0xffF5F5F5)),
@@ -74,7 +75,7 @@ class _DetailsKeranjang extends StatelessWidget {
                                   child: TextFrave(
                                       text: keranjang.keranjang[i].nameProduct
                                           .toString(),
-                                      fontSize: 19,
+                                      fontSize: 20,
                                       fontWeight: FontWeight.w500,
                                       overflow: TextOverflow.ellipsis)),
                               GestureDetector(
@@ -107,7 +108,7 @@ class _DetailsKeranjang extends StatelessWidget {
                                   const SizedBox(height: 10.0),
                                   TextFrave(
                                       text:
-                                          '\Rp. ${keranjang.keranjang[i].price}',
+                                          '\Rp. ${keranjang.keranjang[i].priceawal}',
                                       fontSize: 20,
                                       fontWeight: FontWeight.w500),
                                   const SizedBox(height: 20.0),
@@ -197,9 +198,24 @@ class _DetailsKeranjang extends StatelessWidget {
                                         ),
                                       ],
                                     ),
-                                  )
+                                  ),
                                 ],
                               )
+                            ],
+                          ),
+                          const SizedBox(height: 10.0),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Container(
+                                width:
+                                    MediaQuery.of(context).size.height * 0.130,
+                                child: TextFrave(
+                                    text:
+                                        '\Rp. ${keranjang.keranjang[i].price}',
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w400),
+                              ),
                             ],
                           ),
                         ],

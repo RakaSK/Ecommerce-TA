@@ -22,6 +22,16 @@ class ShoppingPage extends StatelessWidget {
         onWillPop: _onWillPop,
         child: new Scaffold(
           backgroundColor: Color(0xfff5f5f5),
+          floatingActionButton: FloatingActionButton(
+            onPressed: () {
+              modalinfovalidasi(
+                  context,
+                  'Keterangan :\n\nWarna merah berarti belum divaidasi admin \n',
+                  'Warna hijau berarti sudah di validasi admin',
+                  onPressed: () => Navigator.pop(context));
+            },
+            child: Icon(Icons.info_outline),
+          ),
           appBar: AppBar(
             backgroundColor: Colors.white,
             title: const TextFrave(
@@ -110,7 +120,7 @@ class _DetailsProductsBuy extends StatelessWidget {
                                   .toString()))),
                   child: Container(
                     // height: 180,
-                    height: mediaQuery.size.height * 0.57,
+                    height: mediaQuery.size.height * 0.65,
                     padding:
                         EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
                     margin: EdgeInsets.only(bottom: 15.0),
@@ -245,6 +255,29 @@ class _DetailsProductsBuy extends StatelessWidget {
                         const SizedBox(height: 14.0),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            const TextFrave(
+                                text: 'Layanan Pengiriman',
+                                fontSize: 18,
+                                color: Colors.black,
+                                fontWeight: FontWeight.w500),
+                            Flexible(
+                              child: new Text(
+                                '${orderBuy.orderBuy[i].layanankirim}',
+                                textAlign: TextAlign.right,
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontFamily: 'Roboto',
+                                  // letterSpacing: 2,
+                                  // wordSpacing: 3,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 14.0),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             const TextFrave(
                                 text: 'Nama Kurir',
@@ -291,6 +324,10 @@ class _DetailsProductsBuy extends StatelessWidget {
                 ),
               ),
             ),
+            // FloatingActionButton(
+            //   label: (Icon(Icons.save)),
+            //   onPressed: () {},
+            // ),
           ]);
   }
 }

@@ -14,7 +14,7 @@ void modalStatusBayar(BuildContext context, String status, String users,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
       content: SizedBox(
         // height: 550,
-        height: mediaQuery.size.height * 0.75,
+        height: mediaQuery.size.height * 0.74,
         width: mediaQuery.size.width,
         child: Column(
           // crossAxisAlignment: CrossAxisAlignment.start,
@@ -48,7 +48,6 @@ void modalStatusBayar(BuildContext context, String status, String users,
                   )
                 : Row(
                     children: [
-                      // ? TextFrave(text: 'Bukti Belum di Upload', fontSize: 18),
                       Container(
                         height: mediaQuery.size.height * 0.45,
                         width: mediaQuery.size.height * 0.348,
@@ -56,12 +55,6 @@ void modalStatusBayar(BuildContext context, String status, String users,
                             image: DecorationImage(
                                 image: NetworkImage(URLS.baseUrl + picture))),
                       ),
-                      // const SizedBox(height: 200),
-
-                      // TextFrave(
-                      //   text: email,
-                      //   maxLines: 2,
-                      // ),
                     ],
                   ),
             const SizedBox(height: 35.0),

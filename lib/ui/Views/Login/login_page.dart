@@ -55,11 +55,11 @@ class _SignInPageState extends State<SignInPage> {
           userBloc.add(OnGetUserEvent());
           final role = await secureStorage.readRole();
           if (role == 'user') {
-          Navigator.pushAndRemoveUntil(
-              context, routeSlide(page: HomePage()), (_) => false);
+            Navigator.pushAndRemoveUntil(
+                context, routeSlide(page: HomePage()), (_) => false);
           } else {
             Navigator.pushAndRemoveUntil(
-              context, routeSlide(page: AdminPage()), (_) => false);
+                context, routeSlide(page: AdminPage()), (_) => false);
           }
         }
       },
@@ -115,6 +115,18 @@ class _SignInPageState extends State<SignInPage> {
                   hintText: 'Enter your password',
                   prefixIcon: Icon(Icons.password_rounded),
                   validator: passwordValidator,
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                      isChangeSuffixIcon
+                          ? Icons.visibility
+                          : Icons.visibility_off_outlined,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        isChangeSuffixIcon = !isChangeSuffixIcon;
+                      });
+                    },
+                  ),
                 ),
                 const SizedBox(height: 40),
                 BtnFrave(

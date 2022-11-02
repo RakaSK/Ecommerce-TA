@@ -32,3 +32,4 @@ part 'modal_checkout.dart';
 part 'modal_delete_product.dart';
 part 'modal_delete_category.dart';
 part 'modalStatusBayar.dart';
+part 'modal_infovalidasi.dart';

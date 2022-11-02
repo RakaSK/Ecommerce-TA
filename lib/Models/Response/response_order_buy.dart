@@ -45,6 +45,7 @@ class OrderBuy {
     required this.ongkir,
     required this.kota_tujuan,
     required this.estimasi,
+    required this.layanankirim,
     required this.namakurir,
     required this.status,
     required this.picture,
@@ -61,6 +62,7 @@ class OrderBuy {
   int ongkir;
   String kota_tujuan;
   String estimasi;
+  String layanankirim;
   String namakurir;
   String status;
   String picture;
@@ -77,6 +79,7 @@ class OrderBuy {
         ongkir: json["ongkir"],
         kota_tujuan: json["kota_tujuan"],
         estimasi: json["estimasi"],
+        layanankirim: json["layanankirim"],
         namakurir: json["namakurir"],
         status: json["status"],
         picture: json["picture"],

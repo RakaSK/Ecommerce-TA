@@ -47,6 +47,7 @@ class Keranjang {
     required this.nameProduct,
     required this.picture,
     required this.price,
+    required this.priceawal,
     required this.quantity,
     // required this.users,
     // required this.email,
@@ -62,6 +63,7 @@ class Keranjang {
   String nameProduct;
   String picture;
   int price;
+  int priceawal;
   int quantity;
   // String users;
   // String email;
@@ -77,6 +79,7 @@ class Keranjang {
         nameProduct: json["nameProduct"],
         picture: json["picture"],
         price: json["price"],
+        priceawal: json["priceawal"],
         quantity: json["quantity"],
         // users: json["users"],
         // email: json["email"],

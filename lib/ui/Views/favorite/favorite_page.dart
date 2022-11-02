@@ -59,7 +59,7 @@ class _FavoritePageState extends State<FavoritePage> {
                       )
                     : ListFavoriteProduct(products: snapshot.data!)),
             Positioned(
-              bottom: 20,
+              bottom: 0,
               child: Container(
                   width: size.width,
                   child: Align(child: BottomNavigationFrave(index: 2))),

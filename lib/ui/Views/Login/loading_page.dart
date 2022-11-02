@@ -1,6 +1,8 @@
 import 'package:e_commers/Bloc/auth/auth_bloc.dart';
 import 'package:e_commers/Bloc/user/user_bloc.dart';
 import 'package:e_commers/Helpers/helpers.dart';
+import 'package:e_commers/Helpers/secure_storage_frave.dart';
+import 'package:e_commers/ui/Views/Admin/admin_page.dart';
 import 'package:e_commers/ui/Views/Home/home_page.dart';
 import 'package:e_commers/ui/Views/Start/start_home_page.dart';
 import 'package:e_commers/ui/widgets/widgets.dart';
@@ -52,7 +54,7 @@ class _LoadingPageState extends State<LoadingPage>
     final userBloc = BlocProvider.of<UserBloc>(context);
 
     return BlocListener<AuthBloc, AuthState>(
-      listener: (context, state) {
+      listener: (context, state) async {
         if (state is LogOutState) {
           Navigator.of(context).pushAndRemoveUntil(
               routeFade(page: StartHomePage()), (_) => false);
@@ -60,6 +62,15 @@ class _LoadingPageState extends State<LoadingPage>
           userBloc.add(OnGetUserEvent());
           Navigator.of(context)
               .pushAndRemoveUntil(routeSlide(page: HomePage()), (_) => false);
+          // userBloc.add(OnGetUserEvent());
+          // final role = await secureStorage.readRole();
+          // if (role == 'user') {
+          //   Navigator.pushAndRemoveUntil(
+          //       context, routeSlide(page: HomePage()), (_) => false);
+          // } else {
+          //   Navigator.pushAndRemoveUntil(
+          //       context, routeSlide(page: AdminPage()), (_) => false);
+          // }
         }
       },
       child: Scaffold(

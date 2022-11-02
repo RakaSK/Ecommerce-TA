@@ -13,6 +13,7 @@ Route routeSlide({required Widget page, Curve curved = Curves.easeInOut}) {
         position: Tween<Offset>(begin: Offset(0.0, 1.0), end: Offset.zero).animate(curvedAnimation),
         child: child,
       );
+      
     },
   );
 }

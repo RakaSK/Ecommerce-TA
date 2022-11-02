@@ -161,6 +161,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
           event.ongkir,
           event.kota,
           event.estimasi,
+          event.layanankirim,
           event.namakurir);
 
       if (data.resp) {

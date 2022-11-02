@@ -104,12 +104,13 @@ class _CekOngkirState extends State<CekOngkir> {
                 border: Border.all(color: Color.fromARGB(255, 120, 120, 120)),
                 borderRadius: BorderRadius.all(Radius.circular(4.2)),
               ),
-              child: Text('Kota Surakarta (Solo)',
-                  style: TextStyle(
-                    fontSize: 15,
-                    height: 2.7,
-                  ),
-                  textWidthBasis: TextWidthBasis.parent),
+              child: Padding(
+                padding: EdgeInsets.all(12.0),
+                child: Text(
+                  'Kota Surakarta (Solo)',
+                  style: TextStyle(fontSize: 15, height: 1.8),
+                ),
+              ),
             ),
             // Text("Kota Asal = Solo"),
             SizedBox(height: 30),
@@ -177,13 +178,20 @@ class _CekOngkirState extends State<CekOngkir> {
                 border: Border.all(color: Color.fromARGB(255, 120, 120, 120)),
                 borderRadius: BorderRadius.all(Radius.circular(4.2)),
               ),
-              child: Text(
-                  "Berat Paket (gr) = ${(widget.jumlahquantity)} pcs * 500 gr =  ${int.parse(widget.jumlahquantity) * 500} gr",
-                  style: TextStyle(
-                    fontSize: 15,
-                    height: 2.7,
-                  ),
-                  textWidthBasis: TextWidthBasis.parent),
+              child: Padding(
+                padding: EdgeInsets.all(12.0),
+                child: Text(
+                  'Berat Paket (gr) = ${(widget.jumlahquantity)} pcs x 500 gr = ${int.parse(widget.jumlahquantity) * 500} gr',
+                  style: TextStyle(fontSize: 15, height: 1.8),
+                ),
+              ),
+              // child: Text(
+              //     "Berat Paket (gr) = ${(widget.jumlahquantity)} pcs * 500 gr =  ${int.parse(widget.jumlahquantity) * 500} gr",
+              //     style: TextStyle(
+              //       fontSize: 15,
+              //       height: 2.7,
+              //     ),
+              //     textWidthBasis: TextWidthBasis.parent),
             ),
             // Text(
             //     "Berat Paket (gr) = ${(widget.jumlahquantity)} pcs * 500 gr =  ${int.parse(widget.jumlahquantity) * 500} gr"),

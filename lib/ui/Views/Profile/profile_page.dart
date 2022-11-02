@@ -38,7 +38,7 @@ class ProfilePage extends StatelessWidget {
           children: [
             ListProfile(),
             Positioned(
-              bottom: 20,
+              bottom: 0,
               child: Container(
                   width: size.width,
                   child: Align(child: BottomNavigationFrave(index: 5))),

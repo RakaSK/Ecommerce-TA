@@ -20,6 +20,7 @@ class _SignUpPageState extends State<SignUpPage> {
   late TextEditingController passowrdController;
   late TextEditingController passController;
   final _formKey = GlobalKey<FormState>();
+  bool isChangeSuffixIcon = true;
 
   @override
   void initState() {
@@ -135,19 +136,44 @@ class _SignUpPageState extends State<SignUpPage> {
               TextFormFrave(
                 hintText: 'Password',
                 prefixIcon: Icon(Icons.vpn_key_rounded),
-                isPassword: true,
+                isPassword: isChangeSuffixIcon,
                 controller: passowrdController,
                 validator: passwordValidator,
+                suffixIcon: IconButton(
+                  icon: Icon(
+                    isChangeSuffixIcon
+                        ? Icons.visibility
+                        : Icons.visibility_off_outlined,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      isChangeSuffixIcon = !isChangeSuffixIcon;
+                    });
+                  },
+                ),
               ),
               SizedBox(height: 15.0),
               TextFormFrave(
-                  hintText: 'Repeat Password',
-                  controller: passController,
-                  prefixIcon: Icon(Icons.vpn_key_rounded),
-                  isPassword: true,
-                  validator: (val) =>
-                      MatchValidator(errorText: 'Password do not macth ')
-                          .validateMatch(val!, passowrdController.text)),
+                hintText: 'Repeat Password',
+                controller: passController,
+                prefixIcon: Icon(Icons.vpn_key_rounded),
+                isPassword: isChangeSuffixIcon,
+                validator: (val) =>
+                    MatchValidator(errorText: 'Password do not macth ')
+                        .validateMatch(val!, passowrdController.text),
+                suffixIcon: IconButton(
+                  icon: Icon(
+                    isChangeSuffixIcon
+                        ? Icons.visibility
+                        : Icons.visibility_off_outlined,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      isChangeSuffixIcon = !isChangeSuffixIcon;
+                    });
+                  },
+                ),
+              ),
               SizedBox(height: 25.0),
               Row(
                 children: const [

@@ -49,12 +49,12 @@ class ShoppingPageAdmin extends StatelessWidget {
                 Navigator.of(context).push(routeSlide(page: AdminPage())),
           ),
         ),
-        body: FutureBuilder<List<OrderBuy>>(
+        body: FutureBuilder<ResponseOrderBuy>(
           future: pembayaranServices.getPurchasedProductsAdmin(),
           builder: (_, snapshot) {
             return (!snapshot.hasData)
                 ? const ShimmerFrave()
-                : _DetailsProductsBuy(ordersBuy: snapshot.data!);
+                : _DetailsProductsBuy(orderBuy: snapshot.data!);
           },
         ),
       ),
@@ -63,9 +63,10 @@ class ShoppingPageAdmin extends StatelessWidget {
 }
 
 class _DetailsProductsBuy extends StatelessWidget {
-  final List<OrderBuy> ordersBuy;
+  final ResponseOrderBuy orderBuy;
+  // final List<OrderBuy> ordersBuy;
 
-  const _DetailsProductsBuy({Key? key, required this.ordersBuy})
+  const _DetailsProductsBuy({Key? key, required this.orderBuy})
       : super(key: key);
 
   @override
@@ -75,16 +76,16 @@ class _DetailsProductsBuy extends StatelessWidget {
     return ListView.builder(
       physics: const BouncingScrollPhysics(),
       padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
-      itemCount: ordersBuy.length,
+      itemCount: orderBuy.orderBuy.length,
       itemBuilder: (context, i) => InkWell(
         onTap: () => modalStatusBayar(
             context,
-            ordersBuy[i].status,
-            ordersBuy[i].users,
-            ordersBuy[i].email,
-            ordersBuy[i].createdAt,
-            ordersBuy[i].uidOrderBuy,
-            ordersBuy[i].picture),
+            orderBuy.orderBuy[i].status,
+            orderBuy.orderBuy[i].users,
+            orderBuy.orderBuy[i].email,
+            orderBuy.orderBuy[i].createdAt,
+            orderBuy.orderBuy[i].uidOrderBuy,
+            orderBuy.orderBuy[i].picture),
         // onTap: () => Navigator.push(
         //     context,
         //     routeSlide(
@@ -99,19 +100,19 @@ class _DetailsProductsBuy extends StatelessWidget {
         //     ),
         child: Container(
           // height: 450,
-          height: mediaQuery.size.height * 0.56,
+          height: mediaQuery.size.height * 0.65,
           padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
           margin: EdgeInsets.only(bottom: 15.0),
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15.0),
-              color: (ordersBuy[i].status == '0')
+              color: (orderBuy.orderBuy[i].status == '0')
                   ? Colors.red[200]
                   : Colors.green[300]),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               TextFrave(
-                  text: ordersBuy[i].receipt,
+                  text: orderBuy.orderBuy[i].receipt,
                   fontSize: 22,
                   color: ColorsFrave.primaryColorFrave,
                   fontWeight: FontWeight.w500),
@@ -124,7 +125,7 @@ class _DetailsProductsBuy extends StatelessWidget {
                       fontSize: 18,
                       color: Colors.black,
                       fontWeight: FontWeight.w500),
-                  TextFrave(text: ordersBuy[i].users, fontSize: 18),
+                  TextFrave(text: orderBuy.orderBuy[i].users, fontSize: 18),
                 ],
               ),
               const SizedBox(height: 14.0),
@@ -136,7 +137,7 @@ class _DetailsProductsBuy extends StatelessWidget {
                       fontSize: 18,
                       color: Colors.black,
                       fontWeight: FontWeight.w500),
-                  TextFrave(text: ordersBuy[i].email, fontSize: 18),
+                  TextFrave(text: orderBuy.orderBuy[i].email, fontSize: 18),
                 ],
               ),
               const SizedBox(height: 14.0),
@@ -149,15 +150,15 @@ class _DetailsProductsBuy extends StatelessWidget {
                       color: Colors.black,
                       fontWeight: FontWeight.w500),
                   TextFrave(
-                      text: ordersBuy[i].createdAt.day.toString() +
+                      text: orderBuy.orderBuy[i].createdAt.day.toString() +
                           "-" +
-                          ordersBuy[i].createdAt.month.toString() +
+                          orderBuy.orderBuy[i].createdAt.month.toString() +
                           "-" +
-                          ordersBuy[i].createdAt.year.toString() +
+                          orderBuy.orderBuy[i].createdAt.year.toString() +
                           " " +
-                          ordersBuy[i].createdAt.hour.toString() +
+                          orderBuy.orderBuy[i].createdAt.hour.toString() +
                           ":" +
-                          ordersBuy[i].createdAt.minute.toString(),
+                          orderBuy.orderBuy[i].createdAt.minute.toString(),
                       fontSize: 18),
                 ],
               ),
@@ -170,7 +171,9 @@ class _DetailsProductsBuy extends StatelessWidget {
                       fontSize: 18,
                       color: Colors.black,
                       fontWeight: FontWeight.w500),
-                  TextFrave(text: '${ordersBuy[i].kota_tujuan}', fontSize: 18),
+                  TextFrave(
+                      text: '${orderBuy.orderBuy[i].kota_tujuan}',
+                      fontSize: 18),
                 ],
               ),
               const SizedBox(height: 14.0),
@@ -192,7 +195,7 @@ class _DetailsProductsBuy extends StatelessWidget {
                       fontWeight: FontWeight.w500),
                   Flexible(
                     child: new Text(
-                      '${ordersBuy[i].address}',
+                      '${orderBuy.orderBuy[i].address}',
                       textAlign: TextAlign.right,
                       style: TextStyle(
                         fontSize: 18,
@@ -214,7 +217,45 @@ class _DetailsProductsBuy extends StatelessWidget {
                       color: Colors.black,
                       fontWeight: FontWeight.w500),
                   TextFrave(
-                    text: '${ordersBuy[i].estimasi} \Days',
+                    text: '${orderBuy.orderBuy[i].estimasi} \Days',
+                    fontSize: 18,
+                  ),
+                ],
+              ),
+              const SizedBox(height: 14.0),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  const TextFrave(
+                      text: 'Layanan Pengiriman',
+                      fontSize: 18,
+                      color: Colors.black,
+                      fontWeight: FontWeight.w500),
+                  Flexible(
+                    child: new Text(
+                      '${orderBuy.orderBuy[i].layanankirim}',
+                      textAlign: TextAlign.right,
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontFamily: 'Roboto',
+                        // letterSpacing: 2,
+                        // wordSpacing: 3,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 14.0),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const TextFrave(
+                      text: 'Nama Kurir',
+                      fontSize: 18,
+                      color: Colors.black,
+                      fontWeight: FontWeight.w500),
+                  TextFrave(
+                    text: '${orderBuy.orderBuy[i].namakurir}',
                     fontSize: 18,
                   ),
                 ],
@@ -228,7 +269,9 @@ class _DetailsProductsBuy extends StatelessWidget {
                       fontSize: 18,
                       color: Colors.black,
                       fontWeight: FontWeight.w500),
-                  TextFrave(text: '\Rp. ${ordersBuy[i].ongkir}', fontSize: 18),
+                  TextFrave(
+                      text: '\Rp. ${orderBuy.orderBuy[i].ongkir}',
+                      fontSize: 18),
                 ],
               ),
               const SizedBox(height: 14.0),
@@ -240,7 +283,9 @@ class _DetailsProductsBuy extends StatelessWidget {
                       fontSize: 18,
                       color: Colors.black,
                       fontWeight: FontWeight.w500),
-                  TextFrave(text: '\Rp. ${ordersBuy[i].amount}', fontSize: 18),
+                  TextFrave(
+                      text: '\Rp. ${orderBuy.orderBuy[i].amount}',
+                      fontSize: 18),
                 ],
               ),
             ],

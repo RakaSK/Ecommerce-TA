@@ -50,11 +50,12 @@ class OnSaveProductsBuyToDatabaseEvent extends ProductEvent {
   final int ongkir;
   final String kota;
   final String estimasi;
+  final String layanankirim;
   final String namakurir;
   final String uidKeranjang;
 
   OnSaveProductsBuyToDatabaseEvent(this.total, this.ongkir, this.kota,
-      this.estimasi, this.namakurir, this.uidKeranjang);
+      this.estimasi, this.layanankirim, this.namakurir, this.uidKeranjang);
 }
 
 class OnSelectPathImageProductEvent extends ProductEvent {

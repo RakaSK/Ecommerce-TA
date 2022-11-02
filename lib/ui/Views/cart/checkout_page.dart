@@ -21,6 +21,7 @@ class CheckOutPage extends StatelessWidget {
   int ongkir = 0;
   String kota = "";
   String estimasi = "";
+  String layanankirim = "";
   String namakurir = "";
 
   // final ResponseKeranjang keranjang;
@@ -87,7 +88,7 @@ class CheckOutPage extends StatelessWidget {
                                 margin: const EdgeInsets.only(top: 10),
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 5.0, vertical: 10.0),
-                                height: 360,
+                                height: 450,
                                 // height: MediaQuery.of(context).size.height * .5,
                                 color: Colors.white,
                                 child: Column(
@@ -128,6 +129,26 @@ class CheckOutPage extends StatelessWidget {
                                           //     )
                                           //   ],
                                           // ),
+                                        ],
+                                      ),
+                                    ),
+                                    Container(
+                                      // margin: const EdgeInsets.only(top: 10.0),
+                                      padding: const EdgeInsets.all(15.0),
+                                      height: 90,
+                                      color: Colors.white,
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          TextFrave(
+                                              text: 'Layanan Pengiriman',
+                                              fontSize: 19,
+                                              fontWeight: FontWeight.w600),
+                                          Divider(),
+                                          TextFrave(
+                                              text: 'Layanan tidak ditemukan!',
+                                              fontSize: 18),
                                         ],
                                       ),
                                     ),
@@ -181,6 +202,7 @@ class CheckOutPage extends StatelessWidget {
                           } else if (state is SetOngkir) {
                             kota = state.Kota;
                             estimasi = state.Estimasi;
+                            layanankirim = state.LayananKirim;
                             namakurir = state.NamaKurir;
                             ongkir = int.parse(state.Ongkir);
                             print(snapshot.data!.jumlahquantity.toString());
@@ -192,7 +214,7 @@ class CheckOutPage extends StatelessWidget {
                               margin: const EdgeInsets.only(top: 10),
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 5.0, vertical: 10.0),
-                              height: 370,
+                              height: 470,
                               // height: MediaQuery.of(context).size.height * .5,
                               color: Colors.white,
                               child: Column(
@@ -234,6 +256,26 @@ class CheckOutPage extends StatelessWidget {
                                         //     )
                                         //   ],
                                         // ),
+                                      ],
+                                    ),
+                                  ),
+                                  Container(
+                                    margin: const EdgeInsets.only(top: 10.0),
+                                    padding: const EdgeInsets.all(15.0),
+                                    height: 90,
+                                    color: Colors.white,
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        TextFrave(
+                                            text: 'Layanan Pengiriman',
+                                            fontSize: 19,
+                                            fontWeight: FontWeight.w600),
+                                        Divider(),
+                                        TextFrave(
+                                            text: '${state.LayananKirim}',
+                                            fontSize: 18),
                                       ],
                                     ),
                                   ),
@@ -292,7 +334,7 @@ class CheckOutPage extends StatelessWidget {
                         Container(
                           margin: const EdgeInsets.only(top: 10),
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 20.0, vertical: 10.0),
+                              horizontal: 18.0, vertical: 10.0),
                           height: 60,
                           color: Colors.white,
                           child: Row(
@@ -316,7 +358,7 @@ class CheckOutPage extends StatelessWidget {
                         Container(
                           margin: const EdgeInsets.only(top: 10),
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 20.0, vertical: 10.0),
+                              horizontal: 22.0, vertical: 10.0),
                           height: 60,
                           color: Colors.white,
                           child: Row(
@@ -369,6 +411,7 @@ class CheckOutPage extends StatelessWidget {
                                   ongkir,
                                   kota,
                                   estimasi,
+                                  layanankirim,
                                   namakurir,
                                   snapshot.data!.uidKeranjang.toString()));
                             },

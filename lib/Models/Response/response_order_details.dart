@@ -41,6 +41,7 @@ class OrderDetail {
     required this.picture,
     required this.quantity,
     required this.price,
+    required this.priceawal,
     required this.bukti_pembayaran,
   });
 
@@ -51,6 +52,7 @@ class OrderDetail {
   String picture;
   int quantity;
   int price;
+  int priceawal;
   String bukti_pembayaran;
 
   factory OrderDetail.fromJson(Map<String, dynamic> json) => OrderDetail(
@@ -61,6 +63,7 @@ class OrderDetail {
         picture: json["picture"],
         quantity: json["quantity"],
         price: json["price"],
+        priceawal: json["priceawal"],
         bukti_pembayaran: json["bukti_pembayaran"],
       );
 

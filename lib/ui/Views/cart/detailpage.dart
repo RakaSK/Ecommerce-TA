@@ -90,10 +90,13 @@ class _DetailPageState extends State<DetailPage> {
                   Ongkir: _data[index]['cost'][0]['value'].toString(),
                   Order: "0",
                   Estimasi: _data[index]['cost'][0]['etd'].toString(),
+                  LayananKirim:
+                      "${_data[index]['service']}-${_data[index]['description']}",
                   NamaKurir: widget.namakurir!.toString(),
                   Kota: widget.nama_kota_tujuan!.toString()));
               Navigator.push(context, routeSlide(page: CheckOutPage()));
               print(widget.nama_kota_tujuan);
+              print(_data[index]['service'] + _data[index]['description']);
               print(widget.namakurir!.toString());
             },
             title: Text("${_data[index]['service']}"),
@@ -105,7 +108,7 @@ class _DetailPageState extends State<DetailPage> {
                   height: 5,
                 ),
                 Text(
-                  "Rp ${_data[index]['cost'][0]['value']}",
+                  "Rp. ${_data[index]['cost'][0]['value']}",
                   style: TextStyle(fontSize: 20, color: Colors.red),
                 ),
                 SizedBox(

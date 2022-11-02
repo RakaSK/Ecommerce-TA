@@ -96,14 +96,19 @@ class _ListOrderDetails extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 TextFrave(
-                                  text: 'Harga = \Rp ${orderDetails[i].price}',
-                                  fontSize: 20,
+                                  text:
+                                      'Harga = Rp. ${orderDetails[i].priceawal}',
+                                  fontSize: 19,
                                 ),
                                 const SizedBox(height: 5.0),
                                 TextFrave(
-                                    text:
-                                        'Jumlah = ${orderDetails[i].quantity}',
-                                    fontSize: 20),
+                                    text: 'Items = ${orderDetails[i].quantity}',
+                                    fontSize: 19),
+                                const SizedBox(height: 5.0),
+                                TextFrave(
+                                  text: 'Total = Rp. ${orderDetails[i].price}',
+                                  fontSize: 19,
+                                ),
                               ],
                             )
                           ],
