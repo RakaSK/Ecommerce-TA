@@ -26,8 +26,8 @@ class ShoppingPage extends StatelessWidget {
             onPressed: () {
               modalinfovalidasi(
                   context,
-                  'Keterangan :\n\nWarna merah berarti belum divaidasi admin \n',
-                  'Warna hijau berarti sudah di validasi admin',
+                  'Keterangan :\n\nWarna merah berarti admin belum validasi \n',
+                  'Warna hijau berarti admin sudah validasi',
                   onPressed: () => Navigator.pop(context));
             },
             child: Icon(Icons.info_outline),

@@ -32,6 +32,16 @@ class ShoppingPageAdmin extends StatelessWidget {
       },
       child: Scaffold(
         backgroundColor: Color(0xfff5f5f5),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            modalinfovalidasi(
+                context,
+                'Keterangan :\n\nWarna merah berarti admin belum validasi \n',
+                'Warna hijau berarti admin sudah validasi',
+                onPressed: () => Navigator.pop(context));
+          },
+          child: Icon(Icons.info_outline),
+        ),
         appBar: AppBar(
           backgroundColor: Colors.white,
           title: const TextFrave(

@@ -8,26 +8,8 @@ import 'package:e_commers/ui/Views/cart/widgets/kota.dart';
 
 import 'package:http/http.dart' as http;
 
-// void main() {
-//   runApp(const OpsiKirim());
-// }
-
-// class OpsiKirim extends StatelessWidget {
-//   const OpsiKirim({Key? key}) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       title: 'Cek Ongkos Kirim',
-//       debugShowCheckedModeBanner: false,
-//       home: Home(),
-//     );
-//   }
-// }
-
 class CekOngkir extends StatefulWidget {
   final String jumlahquantity;
-  final int beratproduk = 500;
   const CekOngkir({Key? key, required this.jumlahquantity}) : super(key: key);
 
   @override
@@ -38,11 +20,18 @@ class _CekOngkirState extends State<CekOngkir> {
   var key = '10cb836f3ab0ef52cad5298b57367723';
   String? kota_asal = "445";
   var kota_tujuan;
-  // String? berat = widget.jumlahquantity.toString();
+  int berat = 0;
+  int totalberat = 0;
   var beratproduk = 500;
   var kurir;
   var namakurir;
   var nama_kota_tujuan;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -170,8 +159,6 @@ class _CekOngkirState extends State<CekOngkir> {
             //   },
             // ),
             Container(
-              // margin: const EdgeInsets.all(30.0),
-              // padding: const EdgeInsets.all(50.0),
               width: 360,
               height: 60,
               decoration: BoxDecoration(
@@ -180,21 +167,46 @@ class _CekOngkirState extends State<CekOngkir> {
               ),
               child: Padding(
                 padding: EdgeInsets.all(12.0),
-                child: Text(
-                  'Berat Paket (gr) = ${(widget.jumlahquantity)} pcs x 500 gr = ${int.parse(widget.jumlahquantity) * 500} gr',
-                  style: TextStyle(fontSize: 15, height: 1.8),
+                child: TextField(
+                  //input hanya angka
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                    // labelText: "Berat Paket (gram)",
+                    hintText: "Input Berat Paket (gram)",
+                  ),
+                  onChanged: (text) {
+                    setState(() {
+                      if (text == '') {
+                        text = '0';
+                      }
+                      berat = int.parse(text);
+                      totalberat = berat * int.parse(widget.jumlahquantity);
+                    });
+                    print(berat);
+                  },
                 ),
               ),
-              // child: Text(
-              //     "Berat Paket (gr) = ${(widget.jumlahquantity)} pcs * 500 gr =  ${int.parse(widget.jumlahquantity) * 500} gr",
-              //     style: TextStyle(
-              //       fontSize: 15,
-              //       height: 2.7,
-              //     ),
-              //     textWidthBasis: TextWidthBasis.parent),
             ),
-            // Text(
-            //     "Berat Paket (gr) = ${(widget.jumlahquantity)} pcs * 500 gr =  ${int.parse(widget.jumlahquantity) * 500} gr"),
+            SizedBox(height: 10),
+            // Container(
+            //   // margin: const EdgeInsets.all(30.0),
+            //   // padding: const EdgeInsets.all(50.0),
+            //   width: 360,
+            //   height: 60,
+            //   decoration: BoxDecoration(
+            //     border: Border.all(color: Color.fromARGB(255, 120, 120, 120)),
+            //     borderRadius: BorderRadius.all(Radius.circular(4.2)),
+            //   ),
+            //   child: Padding(
+            //     padding: EdgeInsets.all(12.0),
+            //     child: Text(
+            //       'Berat Paket (gr) = ${(widget.jumlahquantity)} pcs x 500 gr = ${int.parse(widget.jumlahquantity) * int.parse(berat)} gr',
+            //       style: TextStyle(fontSize: 15, height: 1.8),
+            //     ),
+            //   ),
+            // ),
+            Text(
+                "Berat Paket (gr) = ${(widget.jumlahquantity)} pcs * ${berat} gr = ${totalberat} gr"),
             SizedBox(height: 30),
             DropdownSearch<String>(
                 mode: Mode.MENU,
@@ -235,7 +247,7 @@ class _CekOngkirState extends State<CekOngkir> {
                         builder: (context) => DetailPage(
                               kota_asal: kota_asal,
                               kota_tujuan: kota_tujuan,
-                              berat: (int.parse(widget.jumlahquantity) * 500)
+                              berat: (int.parse(widget.jumlahquantity) * berat)
                                   .toString(),
                               kurir: kurir,
                               namakurir: namakurir,
